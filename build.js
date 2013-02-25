@@ -58,7 +58,17 @@ function buildAllShaders(callback)
 
 function exportMeshes(callback)
 {
-	var exporter = child_process.spawn("C:/Program Files/Blender Foundation/Blender/blender.exe", ["-b", "meshes/all-meshes.blend", "-P", "export-meshes.py"])
+	os = require("os")
+	if (os.platform() == "win32")
+	{
+		blenderCmd = "C:/Program Files/Blender Foundation/Blender/blender.exe"
+	}
+	else
+	{
+		blenderCmd = "blender"
+	}
+
+	var exporter = child_process.spawn(blenderCmd, ["-b", "meshes/all-meshes.blend", "-P", "export-meshes.py"])
 	exporter.on("exit", function(code)
 	{
 		assert(code == 0)
@@ -143,5 +153,5 @@ rimraf("build", function(err)
 				})
 			})
 		})
-	}, 500)
+	}, 2000)
 })
