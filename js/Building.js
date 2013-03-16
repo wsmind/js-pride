@@ -12,11 +12,12 @@ function Building(options)
 	this.floors = options.floors || 3
 }
 
-Building.prototype.render = function(time)
+Building.prototype.render = function(time, viewProjectionMatrix)
 {
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	this.shader.setFloatUniform("ratio", canvas.width / canvas.height)
+	this.shader.setMat4Uniform("viewProjectionMatrix", viewProjectionMatrix)
 	
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")

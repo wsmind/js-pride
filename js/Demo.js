@@ -64,18 +64,25 @@ Demo.prototype.update = function()
 	this._updateCursor(demoTime)
 	
 	gl.clearColor(0.0, 0.0, 0.0, 1.0)
-	gl.clearDepth(0.0)
+	gl.clearDepth(1.0)
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 	
 	gl.enable(gl.DEPTH_TEST)
-	gl.depthFunc(gl.GEQUAL)
+	gl.depthFunc(gl.LEQUAL)
 	gl.depthMask(true)
 	
 	gl.enable(gl.CULL_FACE)
 	gl.cullFace(gl.BACK)
 	gl.frontFace(gl.CW)
 	
-	this.timeline.render(demoTime)
+	var viewMatrix = mat4.create()
+	var projectionMatrix = mat4.create()
+	var viewProjectionMatrix = mat4.create()
+	mat4.lookAt(viewMatrix, [-5 * Math.cos(demoTime), 5, 8 * Math.sin(demoTime)], [0, 3, 0], [0, 1, 0])
+	mat4.perspective(projectionMatrix, Math.PI * 0.5, canvas.width / canvas.height, 0.1, 100.0)
+	mat4.multiply(viewProjectionMatrix, projectionMatrix, viewMatrix)
+	
+	this.timeline.render(demoTime, viewProjectionMatrix)
 }
 
 Demo.prototype.seek = function(time)

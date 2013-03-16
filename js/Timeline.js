@@ -87,7 +87,7 @@ function Timeline(duration)
 	}
 }
 
-Timeline.prototype.render = function(time)
+Timeline.prototype.render = function(time, viewProjectionMatrix)
 {
 	for (var i = 0; i < this.tracks.length; i++)
 	{
@@ -99,7 +99,7 @@ Timeline.prototype.render = function(time)
 			if ((time >= clip.start) && (time < clip.start + clip.duration))
 			{
 				if (clip.instance)
-					clip.instance.render(time - clip.start)
+					clip.instance.render(time - clip.start, viewProjectionMatrix)
 			}
 		}
 	}
