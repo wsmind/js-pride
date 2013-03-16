@@ -5,7 +5,7 @@ var demo = null
 function setupCanvas()
 {
 	// remove packing garbage
-	document.body.innerHTML = ""
+	//document.body.innerHTML = ""
 	
 	// create global canvas
 	canvas = document.createElement("canvas")
@@ -37,7 +37,7 @@ function resize()
 
 function update(time)
 {
-	demo.update(time)
+	demo.update()
 	requestAnimFrame(update)
 }
 
@@ -61,4 +61,4 @@ var requestAnimFrame = (function() {
 })();
 
 // start demo!
-main()
+$(main)

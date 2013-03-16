@@ -11,15 +11,15 @@ attribute vec3 normal;
 
 void main(void)
 {
-	float c = cos(time);
-	float s = sin(time);
+	float c = cos(time * 0.4);
+	float s = sin(time * 0.4);
 	mat2 rotation = mat2(c, -s, s, c);
 	
-	gl_Position = vec4(position.xzy * 0.01, 1.0);
+	gl_Position = vec4(position, 1.0);
 	gl_Position.xz = rotation * gl_Position.xz;
 	gl_Position.x /= ratio;
-	gl_Position.y += sin(gl_Position.x + time * 5.0) * 0.2 - 2.0;
-	gl_Position.w = gl_Position.z  + 5.0;
+	gl_Position.y += sin(gl_Position.x + time * 0.2) * 0.1 - 0.5;
+	gl_Position.w = gl_Position.z + 1.8;
 	
 	interpolatedNormal = normal;
 }
@@ -28,5 +28,7 @@ void main(void)
 
 void main()
 {
-	gl_FragColor = vec4(1.0, 1.0, interpolatedNormal.z, 1.0);
+	vec3 N = normalize(interpolatedNormal);
+	float bref = max(dot(N, vec3(0.0, 0.707, 0.707)), 0.0);
+	gl_FragColor = vec4(bref, bref, bref, 1.0);
 }
