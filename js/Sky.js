@@ -9,7 +9,7 @@ function Sky()
 	this.mesh = new VertexBuffer(2, gl.FLOAT, new Float32Array(points))
 }
 
-Sky.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
+Sky.prototype.render = function(time, renderParameters)
 {
 	gl.disable(gl.DEPTH_TEST)
 	gl.depthMask(false)
@@ -17,7 +17,8 @@ Sky.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	this.shader.setVec2Uniform("resolution", [canvas.width, canvas.height])
-	this.shader.setMat4Uniform("viewMatrix", viewMatrix)
+	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)
+	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)
 	
 	var posAttribute = this.shader.getAttributeLocation("position")
 	this.mesh.bind(posAttribute)

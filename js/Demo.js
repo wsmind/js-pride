@@ -71,14 +71,22 @@ Demo.prototype.update = function()
 	gl.cullFace(gl.BACK)
 	gl.frontFace(gl.CW)
 	
-	var viewMatrix = mat4.create()
-	var projectionMatrix = mat4.create()
-	var viewProjectionMatrix = mat4.create()
-	mat4.lookAt(viewMatrix, [-5 * Math.cos(demoTime), 5, 8 * Math.sin(demoTime)], [0, 3, 0], [0, 1, 0])
-	mat4.perspective(projectionMatrix, Math.PI * 0.5, canvas.width / canvas.height, 0.1, 100.0)
-	mat4.multiply(viewProjectionMatrix, projectionMatrix, viewMatrix)
+	var renderParameters = {
+		camera: new Camera(),
+		sunDirection: vec3.clone([0, 1, 0])
+	}
 	
-	this.timeline.render(demoTime, viewProjectionMatrix, viewMatrix)
+	// default aspect
+	renderParameters.camera.aspect = canvas.width / canvas.height
+	renderParameters.camera.origin = [-5 * Math.cos(demoTime * 0.4), 7, 8 * Math.sin(demoTime * 0.3)]
+	renderParameters.camera.target = [0, 5, 0]
+	//renderParameters.camera.origin = [-5, 5, 8]
+	//renderParameters.camera.target = [0, 5, 0]
+	
+	renderParameters.sunDirection = vec3.clone([Math.cos(demoTime * 0.1), Math.sin(-demoTime * 0.4), Math.cos(demoTime * 0.4)]);
+	vec3.normalize(renderParameters.sunDirection, renderParameters.sunDirection)
+	
+	this.timeline.render(demoTime, renderParameters)
 }
 
 Demo.prototype.seek = function(time)

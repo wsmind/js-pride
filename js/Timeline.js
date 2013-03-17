@@ -68,7 +68,7 @@ function Timeline(duration)
 				{
 					start: 0,
 					duration: 100,
-					instance: new Building({})
+					instance: new Town({})
 				}
 			]
 		}
@@ -97,7 +97,7 @@ function Timeline(duration)
 	}
 }
 
-Timeline.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
+Timeline.prototype.render = function(time, renderParameters)
 {
 	for (var i = 0; i < this.tracks.length; i++)
 	{
@@ -109,7 +109,7 @@ Timeline.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
 			if ((time >= clip.start) && (time < clip.start + clip.duration))
 			{
 				if (clip.instance)
-					clip.instance.render(time - clip.start, viewProjectionMatrix, viewMatrix)
+					clip.instance.render(time - clip.start, renderParameters)
 			}
 		}
 	}

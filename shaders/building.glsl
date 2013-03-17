@@ -8,13 +8,13 @@ uniform float angle;
 
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
+uniform vec3 sunDirection;
 
 varying vec3 interpolatedPosition;
 varying vec3 interpolatedNormal;
 
 varying vec3 extinction;
 varying vec3 inScattering;
-varying vec3 sunDirection;
 
 //! VERTEX
 attribute vec3 position;
@@ -47,7 +47,7 @@ void main(void)
 	interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
 	// atmospheric scattering (cool fog)
-	sunDirection = normalize(vec3(1.0, sin(time * 0.1) + 1.0, 1.0));
+	//sunDirection = normalize(vec3(1.0, sin(time * 0.1) + 1.0, 1.0));
 	vec3 sunColor = vec3(10.0, 10.0, 10.0);
 	float distance = -viewPosition.z * 0.01;
 	float cosAngle = dot(normalize(vec3(0.0, 0.0, 1.0)), sunDirection);

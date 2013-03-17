@@ -2,7 +2,6 @@
 
 function Building(options)
 {
-	this.shader = new ShaderProgram(buildingVertexShader, buildingFragmentShader)
 	this.doorMesh = new Mesh(doorMeshBuffer)
 	this.windowMesh = new Mesh(windowMeshBuffer)
 	this.cornerMesh = new Mesh(cornerMeshBuffer)
@@ -13,23 +12,11 @@ function Building(options)
 	this.width = options.width || 4
 	this.depth = options.depth || 3
 	this.floors = options.floors || 5
+	this.origin = options.origin || [0, 0, 0]
 }
 
-Building.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
+Building.prototype.render = function(shader, positionAttribute, normalAttribute)
 {
-	gl.enable(gl.DEPTH_TEST)
-	gl.depthFunc(gl.LEQUAL)
-	gl.depthMask(true)
-	
-	this.shader.bind()
-	this.shader.setFloatUniform("time", time)
-	this.shader.setFloatUniform("ratio", canvas.width / canvas.height)
-	this.shader.setMat4Uniform("viewProjectionMatrix", viewProjectionMatrix)
-	this.shader.setMat4Uniform("viewMatrix", viewMatrix)
-	
-	var positionAttribute = this.shader.getAttributeLocation("position")
-	var normalAttribute = this.shader.getAttributeLocation("normal")
-	
 	//this.floors = Math.floor((Math.sin(time * 0.2) + 2.0) * 2.0)
 	//this.depth = Math.floor((Math.sin(time * 0.3) + 2.0) * 2.0)
 	this.drawWall([0, 0, 0], this.width, this.floors, 0, positionAttribute, normalAttribute)
@@ -45,7 +32,10 @@ Building.prototype.drawWall = function(origin, length, height, angle, positionAt
 	{
 		for (var y = 0; y < height; y++)
 		{
-			this.shader.setVec3Uniform("origin", [origin[0] + Math.cos(angle) * x, origin[1] + y, origin[2] - Math.sin(angle) * x])
+			var position = vec3.clone(this.origin)
+			vec3.add(position, position, origin)
+			vec3.add(position, position, [Math.cos(angle) * x, y, -Math.sin(angle) * x])
+			this.shader.setVec3Uniform("origin", position)
 			this.shader.setFloatUniform("angle", angle)
 			
 			if (x == length - 1)
