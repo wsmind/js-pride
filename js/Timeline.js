@@ -53,6 +53,16 @@ function Timeline(duration)
 			]
 		},*/
 		{
+			name: "background",
+			clips: [
+				{
+					start: 0,
+					duration: 100,
+					instance: new Sky({})
+				}
+			]
+		},
+		{
 			name: "cool bro",
 			clips: [
 				{
@@ -87,7 +97,7 @@ function Timeline(duration)
 	}
 }
 
-Timeline.prototype.render = function(time, viewProjectionMatrix)
+Timeline.prototype.render = function(time, viewProjectionMatrix, viewMatrix)
 {
 	for (var i = 0; i < this.tracks.length; i++)
 	{
@@ -99,7 +109,7 @@ Timeline.prototype.render = function(time, viewProjectionMatrix)
 			if ((time >= clip.start) && (time < clip.start + clip.duration))
 			{
 				if (clip.instance)
-					clip.instance.render(time - clip.start, viewProjectionMatrix)
+					clip.instance.render(time - clip.start, viewProjectionMatrix, viewMatrix)
 			}
 		}
 	}

@@ -67,10 +67,6 @@ Demo.prototype.update = function()
 	gl.clearDepth(1.0)
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 	
-	gl.enable(gl.DEPTH_TEST)
-	gl.depthFunc(gl.LEQUAL)
-	gl.depthMask(true)
-	
 	gl.enable(gl.CULL_FACE)
 	gl.cullFace(gl.BACK)
 	gl.frontFace(gl.CW)
@@ -82,7 +78,7 @@ Demo.prototype.update = function()
 	mat4.perspective(projectionMatrix, Math.PI * 0.5, canvas.width / canvas.height, 0.1, 100.0)
 	mat4.multiply(viewProjectionMatrix, projectionMatrix, viewMatrix)
 	
-	this.timeline.render(demoTime, viewProjectionMatrix)
+	this.timeline.render(demoTime, viewProjectionMatrix, viewMatrix)
 }
 
 Demo.prototype.seek = function(time)
