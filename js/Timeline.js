@@ -53,6 +53,33 @@ function Timeline(duration)
 			]
 		},*/
 		{
+			name: "camera",
+			clips: [
+				{
+					start: 0,
+					duration: 100,
+					instance: new FixedCamera({
+						origin: [-20, 6, 1],
+						target: [0, 5, -2],
+						fov: Math.PI * 0.4
+					})
+				}
+			]
+		},
+		{
+			name: "environment",
+			clips: [
+				{
+					start: 0,
+					duration: 100,
+					instance: new Environment({
+						initialTime: 3, // [0-24[
+						speed: 0.4, // hr/sec, so to say ;)
+					})
+				}
+			]
+		},
+		{
 			name: "background",
 			clips: [
 				{

@@ -40,17 +40,16 @@ void main(void)
 	gl_Position = viewProjectionMatrix * vec4(rotatedPos + origin, 1.0);
 	
 	vec3 viewPosition = (viewMatrix * vec4(rotatedPos + origin, 1.0)).xyz;
-	//vec3 cameraPosition = (viewMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+	vec3 viewSunDirection = (viewMatrix * vec4(sunDirection, 0.0)).xyz;
 	
 	interpolatedPosition = gl_Position.xyz;
 	interpolatedNormal = normal;
 	interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
 	// atmospheric scattering (cool fog)
-	//sunDirection = normalize(vec3(1.0, sin(time * 0.1) + 1.0, 1.0));
 	vec3 sunColor = vec3(10.0, 10.0, 10.0);
 	float distance = -viewPosition.z * 0.01;
-	float cosAngle = dot(normalize(vec3(0.0, 0.0, 1.0)), sunDirection);
+	float cosAngle = dot(normalize(viewPosition), viewSunDirection);
 	vec3 rayleighFactor = rayleighScattering(cosAngle);
 	extinction = exp(-distance * rayleighCoefficient);
 	inScattering = sunColor * rayleighFactor / rayleighCoefficient * (vec3(1.0, 1.0, 1.0) - extinction);

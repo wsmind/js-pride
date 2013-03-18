@@ -78,13 +78,11 @@ Demo.prototype.update = function()
 	
 	// default aspect
 	renderParameters.camera.aspect = canvas.width / canvas.height
-	renderParameters.camera.origin = [-5 * Math.cos(demoTime * 0.4), 7, 8 * Math.sin(demoTime * 0.3)]
-	renderParameters.camera.target = [0, 5, 0]
-	//renderParameters.camera.origin = [-5, 5, 8]
+	//renderParameters.camera.origin = [-5 * Math.cos(demoTime * 0.4), 7, 8 * Math.sin(demoTime * 0.3)]
 	//renderParameters.camera.target = [0, 5, 0]
 	
-	renderParameters.sunDirection = vec3.clone([Math.cos(demoTime * 0.1), Math.sin(-demoTime * 0.4), Math.cos(demoTime * 0.4)]);
-	vec3.normalize(renderParameters.sunDirection, renderParameters.sunDirection)
+	//renderParameters.sunDirection = vec3.clone([Math.cos(demoTime * 0.1), Math.sin(-demoTime * 0.4), Math.cos(demoTime * 0.4)]);
+	//vec3.normalize(renderParameters.sunDirection, renderParameters.sunDirection)
 	
 	this.timeline.render(demoTime, renderParameters)
 }
