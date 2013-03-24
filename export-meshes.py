@@ -5,8 +5,12 @@ import os
 
 f = open("build/" + os.path.basename(bpy.data.filepath) + ".js", "w")
 
-for mesh in bpy.data.meshes:
-	f.write("var " + mesh.name + "MeshBuffer=")
+for obj in bpy.data.objects:
+	obj.modifiers.new(name = "edge_split", type = "EDGE_SPLIT")
+	mesh = obj.to_mesh(scene = bpy.context.scene, apply_modifiers = True, settings = "PREVIEW")
+	
+	#for mesh in bpy.data.meshes:
+	f.write("var " + obj.name + "MeshBuffer=")
 	f.write('{"positions":[')
 	for i in range(0, len(mesh.vertices)):
 		f.write(str(mesh.vertices[i].co.x))
