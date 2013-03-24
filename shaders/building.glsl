@@ -27,15 +27,8 @@ attribute vec3 normal;
 
 void main(void)
 {
-	/*float c = cos(angle);
-	float s = sin(angle);
-	mat2 rotation = mat2(c, -s, s, c);*/
-	
-	//vec3 rotatedPos = position;
-	//rotatedPos.xz = rotation * rotatedPos.xz;
-	//rotatedPos.y += sin(rotatedPos.x * rotatedPos.z + time);
-	
 	vec3 worldPosition = position + origin;
+	worldPosition.y += sin(worldPosition.x * worldPosition.z * 0.1) * exp(-mod(time, 1.0)) * 0.4;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	
 	vec3 viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;
