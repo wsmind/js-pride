@@ -53,13 +53,13 @@ Building.prototype.render = function(positionAttribute, normalAttribute)
 
 Building.prototype.buildWall = function(builder, origin, length, height, angle)
 {
+	var position = vec3.create()
 	for (var x = 0; x < length; x++)
 	{
 		for (var y = 0; y < height; y++)
 		{
-			var position = vec3.clone(this.origin)
-			vec3.add(position, position, origin)
-			vec3.add(position, position, [Math.cos(angle) * x, y, -Math.sin(angle) * x])
+			//vec3.add(position, this.origin, origin)
+			vec3.add(position, origin, [Math.cos(angle) * x, y, -Math.sin(angle) * x])
 			
 			if (x == length - 1)
 			{
@@ -83,11 +83,14 @@ Building.prototype.buildWall = function(builder, origin, length, height, angle)
 
 Building.prototype.buildRoof = function(builder, origin)
 {
+	var position = vec3.create()
 	for (var x = 0; x < this.width - 1; x++)
 	{
 		for (var z = 0; z < this.depth - 1; z++)
 		{
-			builder.appendMeshBuffer(roofTopMeshBuffer, [origin[0] + x, origin[1], origin[2] - z], 0)
+			//vec3.add(position, this.origin, [origin[0] + x, origin[1], origin[2] - z])
+			vec3.add(position, origin, [x, 0, -z])
+			builder.appendMeshBuffer(roofTopMeshBuffer, position, 0)
 		}
 	}
 }

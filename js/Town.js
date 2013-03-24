@@ -17,14 +17,19 @@ function Town(options)
 	
 	this.buildings = []
 	
-	/*for (var x = 0; x < 10; x++)
+	for (var x = 0; x < 6; x++)
 	{
-		for (var z = 0; z < 10; z++)
+		for (var z = 0; z < 6; z++)
 		{
-			this.buildings.push(new Building({origin: [x * 7 - 50, 0, -z * 6 + 30]}))
+			this.buildings.push(new Building({
+				origin: [x * 7 - 30, 0, -z * 6 + 10],
+				width: Math.floor(Math.random() * 4),
+				depth: Math.floor(Math.random() * 4),
+				floors: Math.floor(Math.random() * 6)
+			}))
 		}
-	}*/
-	this.buildings.push(new Building({origin: [0, 0, 0]}))
+	}
+	//this.buildings.push(new Building({origin: [0, 0, 0]}))
 }
 
 Town.prototype.render = function(time, renderParameters)
@@ -43,21 +48,21 @@ Town.prototype.render = function(time, renderParameters)
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")
 	
-	/*for (var i = 0; i < this.buildings.length; i++)
+	for (var i = 0; i < this.buildings.length; i++)
 	{
 		var building = this.buildings[i]
 		this.shader.setVec3Uniform("origin", building.origin)
 		building.render(positionAttribute, normalAttribute)
-	}*/
+	}
 	
-	for (var x = 0; x < 6; x++)
+	/*for (var x = 0; x < 6; x++)
 	{
 		for (var z = 0; z < 6; z++)
 		{
 			this.shader.setVec3Uniform("origin", [x * 7 - 30, 0, -z * 6 + 10])
 			this.buildings[0].render(positionAttribute, normalAttribute)
 		}
-	}
+	}*/
 }
 
 /*Town.prototype.drawBuilding = function(origin, positionAttribute, normalAttribute)
