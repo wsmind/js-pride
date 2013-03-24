@@ -1,10 +1,9 @@
 precision highp float;
 
 uniform float time;
-uniform float ratio;
 
 uniform vec3 origin;
-uniform float angle;
+//uniform float angle;
 
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
@@ -28,21 +27,23 @@ attribute vec3 normal;
 
 void main(void)
 {
-	float c = cos(angle);
+	/*float c = cos(angle);
 	float s = sin(angle);
-	mat2 rotation = mat2(c, -s, s, c);
+	mat2 rotation = mat2(c, -s, s, c);*/
 	
-	vec3 rotatedPos = position;
-	rotatedPos.xz = rotation * rotatedPos.xz;
+	//vec3 rotatedPos = position;
+	//rotatedPos.xz = rotation * rotatedPos.xz;
 	//rotatedPos.y += sin(rotatedPos.x * rotatedPos.z + time);
-	gl_Position = viewProjectionMatrix * vec4(rotatedPos + origin, 1.0);
 	
-	vec3 viewPosition = (viewMatrix * vec4(rotatedPos + origin, 1.0)).xyz;
+	vec3 worldPosition = position + origin;
+	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
+	
+	vec3 viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;
 	vec3 viewSunDirection = (viewMatrix * vec4(sunDirection, 0.0)).xyz;
 	
-	interpolatedPosition = gl_Position.xyz;
+	//interpolatedPosition = gl_Position.xyz;
 	interpolatedNormal = normal;
-	interpolatedNormal.xz = rotation * interpolatedNormal.xz;
+	//interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
 	// atmospheric scattering (cool fog)
 	float distance = -viewPosition.z * 5000.0;

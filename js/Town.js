@@ -4,7 +4,7 @@ function Town(options)
 {
 	this.shader = new ShaderProgram(buildingVertexShader, buildingFragmentShader)
 	
-	this.doorMesh = new Mesh(doorMeshBuffer)
+	/*this.doorMesh = new Mesh(doorMeshBuffer)
 	this.windowMesh = new Mesh(windowMeshBuffer)
 	this.cornerMesh = new Mesh(cornerMeshBuffer)
 	this.roofMesh = new Mesh(roofMeshBuffer)
@@ -13,17 +13,18 @@ function Town(options)
 	
 	this.width = options.width || 4
 	this.depth = options.depth || 3
-	this.floors = options.floors || 5
+	this.floors = options.floors || 5*/
 	
-	/*this.buildings = []
+	this.buildings = []
 	
-	for (var x = 0; x < 10; x++)
+	/*for (var x = 0; x < 10; x++)
 	{
 		for (var z = 0; z < 10; z++)
 		{
 			this.buildings.push(new Building({origin: [x * 7 - 50, 0, -z * 6 + 30]}))
 		}
 	}*/
+	this.buildings.push(new Building({origin: [0, 0, 0]}))
 }
 
 Town.prototype.render = function(time, renderParameters)
@@ -44,20 +45,22 @@ Town.prototype.render = function(time, renderParameters)
 	
 	/*for (var i = 0; i < this.buildings.length; i++)
 	{
-		//var building = this.buildings[i]
-		//building.render(this.shader, positionAttribute, normalAttribute)
+		var building = this.buildings[i]
+		this.shader.setVec3Uniform("origin", building.origin)
+		building.render(positionAttribute, normalAttribute)
 	}*/
 	
 	for (var x = 0; x < 6; x++)
 	{
 		for (var z = 0; z < 6; z++)
 		{
-			this.drawBuilding([x * 7 - 30, 0, -z * 6 + 10], positionAttribute, normalAttribute)
+			this.shader.setVec3Uniform("origin", [x * 7 - 30, 0, -z * 6 + 10])
+			this.buildings[0].render(positionAttribute, normalAttribute)
 		}
 	}
 }
 
-Town.prototype.drawBuilding = function(origin, positionAttribute, normalAttribute)
+/*Town.prototype.drawBuilding = function(origin, positionAttribute, normalAttribute)
 {
 	//this.floors = Math.floor((Math.sin(time * 0.2) + 2.0) * 2.0)
 	//this.depth = Math.floor((Math.sin(time * 0.3) + 2.0) * 2.0)
@@ -117,4 +120,4 @@ Town.prototype.drawRoof = function(origin, positionAttribute, normalAttribute)
 			this.roofTopMesh.render(positionAttribute, normalAttribute)
 		}
 	}
-}
+}*/
