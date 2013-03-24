@@ -17,17 +17,14 @@ varying vec3 extinction;
 varying vec3 inScattering;
 
 //! VERTEX
+//! INCLUDE skycolor.glsl
+
 attribute vec3 position;
 attribute vec3 normal;
 
 // source: http://www.scratchapixel.com/lessons/3d-advanced-lessons/simulating-the-colors-of-the-sky/atmospheric-scattering/
 // scaled by 10^5 for precision
-vec3 rayleighCoefficient = vec3(0.58, 1.35, 3.31);
-
-vec3 rayleighScattering(float cosAngle)
-{
-	return 3.0 / (16.0 * 3.1415) * (1.0 + cosAngle * cosAngle) * rayleighCoefficient;
-}
+//vec3 rayleighCoefficient = vec3(0.58, 1.35, 3.31);
 
 void main(void)
 {
@@ -37,6 +34,7 @@ void main(void)
 	
 	vec3 rotatedPos = position;
 	rotatedPos.xz = rotation * rotatedPos.xz;
+	//rotatedPos.y += sin(rotatedPos.x * rotatedPos.z + time);
 	gl_Position = viewProjectionMatrix * vec4(rotatedPos + origin, 1.0);
 	
 	vec3 viewPosition = (viewMatrix * vec4(rotatedPos + origin, 1.0)).xyz;
@@ -47,12 +45,10 @@ void main(void)
 	interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
 	// atmospheric scattering (cool fog)
-	vec3 sunColor = vec3(10.0, 10.0, 10.0);
-	float distance = -viewPosition.z * 0.01;
+	float distance = -viewPosition.z * 5000.0;
 	float cosAngle = dot(normalize(viewPosition), viewSunDirection);
-	vec3 rayleighFactor = rayleighScattering(cosAngle);
 	extinction = exp(-distance * rayleighCoefficient);
-	inScattering = sunColor * rayleighFactor / rayleighCoefficient * (vec3(1.0, 1.0, 1.0) - extinction);
+	inScattering = skyColor(normalize(viewPosition), viewSunDirection) * (1.0 - extinction);
 }
 
 //! FRAGMENT
