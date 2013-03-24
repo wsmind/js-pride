@@ -4,8 +4,8 @@ function Demo()
 {
 	// load sound
 	this.audio = new Audio()
-	this.audio.src = "music/LukHash_-_PRELUDE.mp3"
-	this.audio.volume = 0
+	this.audio.src = "music/Pissaladiere03_drums.mp3"
+	//this.audio.volume = 0
 	
 	this.audio.play()
 	
