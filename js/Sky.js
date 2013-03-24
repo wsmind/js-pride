@@ -11,7 +11,7 @@ function Sky()
 
 Sky.prototype.render = function(time, renderParameters)
 {
-	gl.disable(gl.DEPTH_TEST)
+	gl.enable(gl.DEPTH_TEST)
 	gl.depthMask(false)
 	
 	this.shader.bind()

@@ -38,9 +38,9 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 	//outColor = inScattering * sunColor;// * exp(-distance * 600000.0 * rayleighCoefficient);
 	
 	outColor = vec3(0.0, 0.0, 0.0);
-	float opticalDepth = 1.0;
-	const int stepCount = 20;
-	const float scaleHeight = 8000.0;
+	//float opticalDepth = 1.0;
+	const int stepCount = 10;
+	//const float scaleHeight = 8000.0;
 	const float step = 1.0 / float(stepCount);
 	float s = 0.0;
 	for (int i = 0; i < stepCount; i++)
@@ -49,7 +49,7 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 		vec3 position = vec3(0.0, 0.9, 0.0) + s * distance * viewDirection;
 		float realDistanceToViewPoint = s * distance * 600000.0; // map 0.1 from the unit sphere to 60km of atmosphere
 		float altitude = (length(position) - 0.9) * 600000.0; // in [0-60km]
-		opticalDepth += exp(-altitude / scaleHeight) * step * distance * 600000.0;
+		//opticalDepth += exp(-altitude / scaleHeight) * step * distance * 600000.0;
 		float depth = distanceToUnitSphere(position, sunDirection) * 600000.0;
 		vec3 extinction = exp(-depth * rayleighCoefficient);
 		vec3 extinction2 = exp(-realDistanceToViewPoint * 0.3 * rayleighCoefficient);
