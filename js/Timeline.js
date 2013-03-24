@@ -57,10 +57,11 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 100,
+					duration: 400,
 					instance: new FixedCamera({
-						origin: [-20, 6, 1],
-						target: [0, 5, -2],
+						//origin: [-20, 6, 1],
+						origin: [-20, 4, -1],
+						target: [0, 3, -3],
 						fov: Math.PI * 0.4
 					})
 				}
@@ -71,10 +72,10 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 100,
+					duration: 400,
 					instance: new Environment({
 						initialTime: 3, // [0-24[
-						speed: 0.4, // hr/sec, so to say ;)
+						speed: 0.2, // hr/sec, so to say ;)
 					})
 				}
 			]
@@ -84,7 +85,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 100,
+					duration: 400,
 					instance: new Sky({})
 				}
 			]
@@ -94,8 +95,18 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 100,
+					duration: 400,
 					instance: new Town({})
+				}
+			]
+		},
+		{
+			name: "ground",
+			clips: [
+				{
+					start: 0,
+					duration: 400,
+					instance: new Ground()
 				}
 			]
 		}

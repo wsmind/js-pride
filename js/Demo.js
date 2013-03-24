@@ -5,7 +5,8 @@ function Demo()
 	// load sound
 	this.audio = new Audio()
 	this.audio.src = "music/Pissaladiere03_drums.mp3"
-	this.audio.volume = 0
+	//this.audio.volume = 0
+	this.bpm = 128
 	
 	this.audio.play()
 	
@@ -14,7 +15,8 @@ function Demo()
 	setTimeout(function()
 	{
 		// wait to have the actual audio duration (not NaN)
-		self.timeline = new Timeline(self.audio.duration)
+		self.beatDuration = self.audio.duration * self.bpm / 60.0
+		self.timeline = new Timeline(self.beatDuration)
 	}, 500)
 	
 	$(window).keydown(function(event)
@@ -37,12 +39,12 @@ function Demo()
 		if (downEvent.button == 0)
 		{
 			//debugger;
-			self.seek((downEvent.clientX - downEvent.delegateTarget.offsetLeft) * self.audio.duration / this.clientWidth)
+			self.seek((downEvent.clientX - downEvent.delegateTarget.offsetLeft) * self.beatDuration / this.clientWidth)
 			
 			// start dragging
 			$("#timeline .content").mousemove(function(moveEvent)
 			{
-				self.seek((moveEvent.clientX - moveEvent.delegateTarget.offsetLeft) * self.audio.duration / this.clientWidth)
+				self.seek((moveEvent.clientX - moveEvent.delegateTarget.offsetLeft) * self.beatDuration / this.clientWidth)
 			})
 		}
 	})
@@ -59,7 +61,7 @@ Demo.prototype.update = function()
 	if (!this.timeline)
 		return
 	
-	var demoTime = this.audio.currentTime
+	var demoTime = this.audio.currentTime * this.bpm / 60.0
 	
 	this._updateCursor(demoTime)
 	
@@ -90,7 +92,7 @@ Demo.prototype.update = function()
 Demo.prototype.seek = function(time)
 {
 	// seek audio track
-	this.audio.currentTime = time
+	this.audio.currentTime = time * 60.0 / this.bpm
 	
 	// update time cursor
 	this._updateCursor(time)
@@ -98,7 +100,7 @@ Demo.prototype.seek = function(time)
 
 Demo.prototype._updateCursor = function(time)
 {
-	var cursorPosition = time * $("#timeline .content").width() / this.audio.duration;
+	var cursorPosition = time * $("#timeline .content").width() / this.beatDuration;
 	
 	$("#cursor").css("left", cursorPosition)
 }

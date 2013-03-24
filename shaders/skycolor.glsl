@@ -52,7 +52,7 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 		opticalDepth += exp(-altitude / scaleHeight) * step * distance * 600000.0;
 		float depth = distanceToUnitSphere(position, sunDirection) * 600000.0;
 		vec3 extinction = exp(-depth * rayleighCoefficient);
-		vec3 extinction2 = exp(-realDistanceToViewPoint * 0.5 * rayleighCoefficient);
+		vec3 extinction2 = exp(-realDistanceToViewPoint * 0.3 * rayleighCoefficient);
 		//outColor = vec3(opticalDepth, 0.0, 0.0) * 0.1;
 		outColor += extinction2 * extinction * rayleighCoefficient * step * distance * 600000.0;
 	}
@@ -66,7 +66,7 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 vec3 sunLight(vec3 viewDirection, vec3 sunDirection)
 {
 	float cosAngle = dot(sunDirection, viewDirection);
-	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 4000.0);
+	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 1000.0 + (1.0 - exp(-mod(time, 1.0))) * 3000.0);
 	
 	return sun;
 }
