@@ -25,7 +25,7 @@ function Town(options)
 				origin: [x * 7 - 30, 0, -z * 6 + 10],
 				width: Math.floor(Math.random() * 4),
 				depth: Math.floor(Math.random() * 4),
-				floors: Math.floor(Math.random() * 6)
+				floors: 5
 			}))
 		}
 	}
@@ -48,12 +48,15 @@ Town.prototype.render = function(time, renderParameters)
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")
 	
+	var beat = Math.exp(-(time % 1.0))
 	for (var i = 0; i < this.buildings.length; i++)
 	{
 		var building = this.buildings[i]
 		this.shader.setVec3Uniform("origin", building.origin)
-		this.shader.setFloatUniform("scale", 1.0)
-		this.shader.setFloatUniform("rainbowFactor", 0.0)
+		//this.shader.setFloatUniform("scale", 1.0)
+		//this.shader.setFloatUniform("rainbowFactor", 0.0)
+		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
+		this.shader.setFloatUniform("rainbowFactor", beat * 0.2)
 		building.render(positionAttribute, normalAttribute)
 	}
 	
