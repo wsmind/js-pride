@@ -59,7 +59,7 @@ function Timeline(duration)
 					start: 0,
 					duration: 320,
 					instance: new FixedCamera({
-						origin: [-20, 4, 0],
+						origin: [-40, 7, 0],
 						target: [0, 3, -2],
 						fov: Math.PI * 0.25
 					})
