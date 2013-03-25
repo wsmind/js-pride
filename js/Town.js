@@ -57,6 +57,7 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("rainbowFactor", 0.0)
 		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
 		this.shader.setFloatUniform("rainbowFactor", beat * 0.2)
+		this.shader.setFloatUniform("spaceFactor", beat)
 		building.render(positionAttribute, normalAttribute)
 	}
 	

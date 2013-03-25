@@ -5,6 +5,7 @@ uniform float time;
 uniform vec3 origin;
 uniform float scale;
 uniform float rainbowFactor;
+uniform float spaceFactor;
 
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
@@ -26,6 +27,7 @@ void main(void)
 {
 	vec3 worldPosition = position + origin;
 	//worldPosition.y += sin(worldPosition.x * worldPosition.z * 0.1) * exp(-mod(time, 1.0)) * 0.4;
+	//worldPosition.y += (exp(spaceFactor) - 1.0) * 10.0;
 	worldPosition.y *= scale;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	
