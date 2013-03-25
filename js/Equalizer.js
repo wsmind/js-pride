@@ -4,18 +4,6 @@ function Equalizer(options)
 {
 	this.shader = new ShaderProgram(buildingVertexShader, buildingFragmentShader)
 	
-	this.buildings = []
-	
-	for (var x = 0; x < 6; x++)
-	{
-		this.buildings.push(new Building({
-			origin: [x * 4 - 10.5, 0, 0],
-			width: 2,
-			depth: 2,
-			floors: 6
-		}))
-	}
-	
 	this.building = new Building({
 		width: 2,
 		depth: 2,
@@ -48,15 +36,4 @@ Equalizer.prototype.render = function(time, renderParameters)
 		this.shader.setFloatUniform("rainbowFactor", beat)
 		this.building.render(positionAttribute, normalAttribute)
 	}
-	
-	/*for (var i = 0; i < this.buildings.length; i++)
-	{
-		var building = this.buildings[i]
-		this.shader.setVec3Uniform("origin", building.origin)
-		var height = ((Math.floor(time) * 3527 * i) % 5) / 3
-		var beat = Math.exp(-(time % 1.0))
-		this.shader.setFloatUniform("scale", height + beat)
-		this.shader.setFloatUniform("rainbowFactor", beat)
-		building.render(positionAttribute, normalAttribute)
-	}*/
 }

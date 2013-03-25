@@ -36,7 +36,7 @@ function Camera()
 		set: function(nearPlane) { this._nearPlane = nearPlane; this._rebuildMatrix() }
 	})
 	
-	this._farPlane = 100.0
+	this._farPlane = 200.0
 	Object.defineProperty(this, "farPlane", {
 		get: function() { return this._farPlane },
 		set: function(farPlane) { this._farPlane = farPlane; this._rebuildMatrix() }

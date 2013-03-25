@@ -72,6 +72,15 @@ function Timeline(duration)
 						target: [0, 7, 0],
 						fov: Math.PI * 0.12
 					})
+				},
+				{
+					start: 64,
+					duration: 32,
+					instance: new FixedCamera({
+						origin: [0, 120, 3],
+						target: [0, 1, 2],
+						fov: Math.PI * 0.16
+					})
 				}
 			]
 		},
@@ -115,6 +124,11 @@ function Timeline(duration)
 					start: 32,
 					duration: 32,
 					instance: new Equalizer()
+				},
+				{
+					start: 64,
+					duration: 32,
+					instance: new BuildingText("JS-PRIDE")
 				}
 			]
 		},
