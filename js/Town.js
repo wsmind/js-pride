@@ -52,6 +52,8 @@ Town.prototype.render = function(time, renderParameters)
 	{
 		var building = this.buildings[i]
 		this.shader.setVec3Uniform("origin", building.origin)
+		this.shader.setFloatUniform("scale", 1.0)
+		this.shader.setFloatUniform("rainbowFactor", 0.0)
 		building.render(positionAttribute, normalAttribute)
 	}
 	

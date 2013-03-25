@@ -15,7 +15,7 @@ attribute vec2 position;
 
 void main(void)
 {
-	vec3 worldPosition = vec3(position.x, 0.0, position.y) * 40.0;
+	vec3 worldPosition = vec3(position.x, 0.0, position.y) * 100.0;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	
 	viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;

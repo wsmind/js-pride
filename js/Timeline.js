@@ -57,12 +57,20 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 400,
+					duration: 32,
 					instance: new FixedCamera({
-						//origin: [-20, 6, 1],
-						origin: [-20, 4, -1],
-						target: [0, 3, -3],
-						fov: Math.PI * 0.4
+						origin: [-20, 6, 1],
+						target: [0, 6, 0],
+						fov: Math.PI * 0.25
+					})
+				},
+				{
+					start: 32,
+					duration: 32,
+					instance: new FixedCamera({
+						origin: [0, 7, 40],
+						target: [0, 7, 0],
+						fov: Math.PI * 0.12
 					})
 				}
 			]
@@ -85,8 +93,13 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 400,
-					instance: new Sky({})
+					duration: 32,
+					instance: new Sky()
+				},
+				{
+					start: 32,
+					duration: 32,
+					instance: new Background()
 				}
 			]
 		},
@@ -95,8 +108,13 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 400,
-					instance: new Town({})
+					duration: 32,
+					instance: new Town()
+				},
+				{
+					start: 32,
+					duration: 32,
+					instance: new Equalizer()
 				}
 			]
 		},
@@ -105,7 +123,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 400,
+					duration: 32,
 					instance: new Ground()
 				}
 			]

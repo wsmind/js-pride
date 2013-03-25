@@ -9,8 +9,11 @@ function Background()
 	this.mesh = new VertexBuffer(2, gl.FLOAT, new Float32Array(points))
 }
 
-Background.prototype.render = function(time)
+Background.prototype.render = function(time, renderParameters)
 {
+	gl.enable(gl.DEPTH_TEST)
+	gl.depthMask(false)
+	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	this.shader.setVec2Uniform("res", [canvas.width, canvas.height])

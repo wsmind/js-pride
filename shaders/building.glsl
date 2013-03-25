@@ -3,7 +3,8 @@ precision highp float;
 uniform float time;
 
 uniform vec3 origin;
-//uniform float angle;
+uniform float scale;
+uniform float rainbowFactor;
 
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
@@ -21,14 +22,11 @@ varying vec3 inScattering;
 attribute vec3 position;
 attribute vec3 normal;
 
-// source: http://www.scratchapixel.com/lessons/3d-advanced-lessons/simulating-the-colors-of-the-sky/atmospheric-scattering/
-// scaled by 10^5 for precision
-//vec3 rayleighCoefficient = vec3(0.58, 1.35, 3.31);
-
 void main(void)
 {
 	vec3 worldPosition = position + origin;
-	worldPosition.y += sin(worldPosition.x * worldPosition.z * 0.1) * exp(-mod(time, 1.0)) * 0.4;
+	//worldPosition.y += sin(worldPosition.x * worldPosition.z * 0.1) * exp(-mod(time, 1.0)) * 0.4;
+	worldPosition.y *= scale;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	
 	vec3 viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;
@@ -39,7 +37,7 @@ void main(void)
 	//interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
 	// atmospheric scattering (cool fog)
-	float distance = -viewPosition.z * 5000.0;
+	float distance = -viewPosition.z * 1000.0;
 	float cosAngle = dot(normalize(viewPosition), viewSunDirection);
 	extinction = exp(-distance * rayleighCoefficient);
 	inScattering = skyColor(normalize(viewPosition), viewSunDirection) * (1.0 - extinction);
@@ -47,12 +45,34 @@ void main(void)
 
 //! FRAGMENT
 
+vec3 rainbow(float x)
+{
+	/*
+		Target colors
+		=============
+		
+		L  x   color
+		0  0.0 vec4(1.0, 0.0, 0.0, 1.0);
+		1  0.2 vec4(1.0, 0.5, 0.0, 1.0);
+		2  0.4 vec4(1.0, 1.0, 0.0, 1.0);
+		3  0.6 vec4(0.0, 0.5, 0.0, 1.0);
+		4  0.8 vec4(0.0, 0.0, 1.0, 1.0);
+		5  1.0 vec4(0.5, 0.0, 0.5, 1.0);
+	*/
+	
+	float level = floor(x * 6.0);
+	float r = float(level <= 2.0) + float(level > 4.0) * 0.5;
+	float g = max(1.0 - abs(level - 2.0) * 0.5, 0.0);
+	float b = (1.0 - (level - 4.0) * 0.5) * float(level >= 4.0);
+	return vec3(r, g, b);
+}
+
 void main()
 {
 	vec3 N = normalize(interpolatedNormal);
 	float luminance = max(dot(N, sunDirection), 0.0);
 	vec3 radiance = vec3(luminance, luminance, luminance);
-	vec3 color = radiance * extinction + inScattering;
+	vec3 color = radiance * extinction + inScattering + rainbow(mod(scale, 1.0)) * rainbowFactor;
 	//vec3 color = extinction;
 	gl_FragColor = vec4(color, 1.0);
 	//gl_FragColor = vec4(interpolatedPosition, 1.0);
