@@ -7,7 +7,7 @@ function Ground(options)
 	// fullscreen quad
 	//var points = [-1, 1, -1, -1, 1, 1, 1, -1]
 	//this.mesh = new VertexBuffer(2, gl.FLOAT, new Float32Array(points))
-	this._size = 20
+	this._size = 200
 	this._updateMesh()
 }
 
