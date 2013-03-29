@@ -5,8 +5,8 @@ function Equalizer(options)
 	this.shader = new ShaderProgram(buildingVertexShader, buildingFragmentShader)
 	
 	this.building = new Building({
-		width: 2,
-		depth: 2,
+		width: 3,
+		depth: 3,
 		floors: 6
 	})
 }

@@ -35,7 +35,7 @@ void main(void)
 	vec3 viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;
 	vec3 viewSunDirection = (viewMatrix * vec4(sunDirection, 0.0)).xyz;
 	
-	//interpolatedPosition = gl_Position.xyz;
+	interpolatedPosition = gl_Position.xyz;
 	interpolatedNormal = normal;
 	//interpolatedNormal.xz = rotation * interpolatedNormal.xz;
 	
@@ -47,6 +47,7 @@ void main(void)
 }
 
 //! FRAGMENT
+//! INCLUDE hatching.glsl
 
 vec3 rainbow(float x)
 {
@@ -74,6 +75,7 @@ void main()
 {
 	vec3 N = normalize(interpolatedNormal);
 	float luminance = max(dot(N, sunDirection), 0.0);
+	luminance = luminance;// * crosshatch(interpolatedPosition.xy * 100.0, luminance);
 	vec3 radiance = vec3(luminance, luminance, luminance);
 	vec3 color = radiance * extinction + inScattering + rainbow(mod(scale, 1.0)) * rainbowFactor;
 	//vec3 color = extinction;

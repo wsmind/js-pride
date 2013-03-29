@@ -15,9 +15,7 @@ function Town(options)
 	this.depth = options.depth || 3
 	this.floors = options.floors || 5*/
 	
-	this.buildings = []
-	
-	for (var x = 0; x < 6; x++)
+	/*for (var x = 0; x < 6; x++)
 	{
 		for (var z = 0; z < 6; z++)
 		{
@@ -28,6 +26,32 @@ function Town(options)
 				floors: 5
 			}))
 		}
+	}*/
+	
+	this.models = []
+	for (var depth = 2; depth < 7; depth++)
+	{
+		this.models.push(new Building({
+			width: 2,
+			depth: depth,
+			floors: 5
+		}))
+	}
+	
+	var currentZ = 0
+	this.buildings = []
+	for (var i = 0; i < 20; i++)
+	{
+		var size = Math.floor(Math.random() * 4) + 2
+		this.buildings.push({
+			origin: [2, 0, currentZ],
+			size: size
+		})
+		this.buildings.push({
+			origin: [-4, 0, currentZ],
+			size: size
+		})
+		currentZ -= size
 	}
 	//this.buildings.push(new Building({origin: [0, 0, 0]}))
 }
@@ -48,6 +72,20 @@ Town.prototype.render = function(time, renderParameters)
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")
 	
+	/*var beat = Math.exp(-(time % 1.0))
+	for (var i = 0; i < this.buildings.length; i++)
+	{
+		var building = this.buildings[i]
+		this.shader.setVec3Uniform("origin", building.origin)
+		//this.shader.setFloatUniform("scale", 1.0)
+		//this.shader.setFloatUniform("rainbowFactor", 0.0)
+		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
+		this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
+		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
+		this.shader.setFloatUniform("spaceFactor", 0)
+		building.render(positionAttribute, normalAttribute)
+	}*/
+	
 	var beat = Math.exp(-(time % 1.0))
 	for (var i = 0; i < this.buildings.length; i++)
 	{
@@ -57,8 +95,9 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("rainbowFactor", 0.0)
 		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
 		this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
-		this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
-		building.render(positionAttribute, normalAttribute)
+		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
+		this.shader.setFloatUniform("spaceFactor", 0)
+		this.models[building.size - 2].render(positionAttribute, normalAttribute)
 	}
 	
 	/*for (var x = 0; x < 6; x++)
@@ -70,65 +109,3 @@ Town.prototype.render = function(time, renderParameters)
 		}
 	}*/
 }
-
-/*Town.prototype.drawBuilding = function(origin, positionAttribute, normalAttribute)
-{
-	//this.floors = Math.floor((Math.sin(time * 0.2) + 2.0) * 2.0)
-	//this.depth = Math.floor((Math.sin(time * 0.3) + 2.0) * 2.0)
-	var position = vec3.create()
-	vec3.add(position, origin, [0, 0, 0])
-	this.drawWall(position, this.width, this.floors, 0, positionAttribute, normalAttribute)
-	vec3.add(position, origin, [this.width, 0, -1])
-	this.drawWall(position, this.depth, this.floors, Math.PI * 0.5, positionAttribute, normalAttribute)
-	vec3.add(position, origin, [this.width - 1, 0, -this.depth - 1])
-	this.drawWall(position, this.width, this.floors, Math.PI, positionAttribute, normalAttribute)
-	vec3.add(position, origin, [-1, 0, -this.depth])
-	this.drawWall(position, this.depth, this.floors, -Math.PI * 0.5, positionAttribute, normalAttribute)
-	vec3.add(position, origin, [0, this.floors, -1])
-	this.drawRoof(position, positionAttribute, normalAttribute)
-}
-
-Town.prototype.drawWall = function(origin, length, height, angle, positionAttribute, normalAttribute)
-{
-	for (var x = 0; x < length; x++)
-	{
-		for (var y = 0; y < height; y++)
-		{
-			var position = vec3.clone(origin)
-			vec3.add(position, position, [Math.cos(angle) * x, y, -Math.sin(angle) * x])
-			this.shader.setVec3Uniform("origin", position)
-			this.shader.setFloatUniform("angle", angle)
-			
-			if (x == length - 1)
-			{
-				if (y == height - 1)
-					this.roofCornerMesh.render(positionAttribute, normalAttribute)
-				else
-					this.cornerMesh.render(positionAttribute, normalAttribute)
-			}
-			else
-			{
-				if (y == height - 1)
-					this.roofMesh.render(positionAttribute, normalAttribute)
-				else if (y > 0)
-					this.windowMesh.render(positionAttribute, normalAttribute)
-				else
-					this.doorMesh.render(positionAttribute, normalAttribute)
-			}
-		}
-	}
-}
-
-Town.prototype.drawRoof = function(origin, positionAttribute, normalAttribute)
-{
-	for (var x = 0; x < this.width - 1; x++)
-	{
-		for (var z = 0; z < this.depth - 1; z++)
-		{
-			this.shader.setVec3Uniform("origin", [origin[0] + x, origin[1], origin[2] - z])
-			this.shader.setFloatUniform("angle", 0)
-			
-			this.roofTopMesh.render(positionAttribute, normalAttribute)
-		}
-	}
-}*/

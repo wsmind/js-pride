@@ -5,17 +5,20 @@ uniform vec2 resolution;
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
 uniform vec3 sunDirection;
+uniform float stride;
 
 varying vec3 viewPosition;
 varying vec3 viewSunDirection;
 
 //! VERTEX
 
-attribute vec2 position;
+//attribute vec2 position;
+attribute float gridIndex;
 
 void main(void)
 {
-	vec3 worldPosition = vec3(position.x, 0.0, position.y) * 100.0;
+	vec3 worldPosition = vec3(mod(gridIndex, stride), 0.0, floor(gridIndex / stride)) - 20.0;
+	//vec3 worldPosition = vec3(position.x, 0.0, position.y) * 100.0;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	
 	viewPosition = (viewMatrix * vec4(worldPosition, 1.0)).xyz;
@@ -37,6 +40,8 @@ void main(void)
 	
 	float luminance = max(sunDirection.y, 0.0);
 	vec3 radiance = vec3(luminance, luminance, luminance);
-	vec3 color = radiance * extinction + inScattering;
+	//vec3 color = radiance * extinction + inScattering;
+	
+	vec3 color = vec3(0.0, 1.0, 0.0);
 	gl_FragColor = vec4(color, 1.0);
 }
