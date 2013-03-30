@@ -3,19 +3,21 @@
 function Neon(options)
 {
 	this.shader = new ShaderProgram(neonVertexShader, neonFragmentShader)
+	this.origin = options.origin || [0, 0, 0]
+	var points = options.points
 	
-	var positions = new Float32Array(plopYopPoints.length * 2)
-	var normals = new Float32Array(plopYopPoints.length * 2)
-	var tangents = new Float32Array(plopYopPoints.length * 2)
+	var positions = new Float32Array(points.length * 2)
+	var normals = new Float32Array(points.length * 2)
+	var tangents = new Float32Array(points.length * 2)
 	
-	for (var i = 0; i < plopYopPoints.length; i++)
+	for (var i = 0; i < points.length; i++)
 	{
-		positions[(i * 2 + 0) * 3 + 0] = plopYopPoints[(i + 0) * 3 + 0]
-		positions[(i * 2 + 0) * 3 + 1] = plopYopPoints[(i + 0) * 3 + 1]
-		positions[(i * 2 + 0) * 3 + 2] = plopYopPoints[(i + 0) * 3 + 2]
-		positions[(i * 2 + 1) * 3 + 0] = plopYopPoints[(i + 0) * 3 + 0]
-		positions[(i * 2 + 1) * 3 + 1] = plopYopPoints[(i + 0) * 3 + 1]
-		positions[(i * 2 + 1) * 3 + 2] = plopYopPoints[(i + 0) * 3 + 2]
+		positions[(i * 2 + 0) * 3 + 0] = points[(i + 0) * 3 + 0]
+		positions[(i * 2 + 0) * 3 + 1] = points[(i + 0) * 3 + 1]
+		positions[(i * 2 + 0) * 3 + 2] = points[(i + 0) * 3 + 2]
+		positions[(i * 2 + 1) * 3 + 0] = points[(i + 0) * 3 + 0]
+		positions[(i * 2 + 1) * 3 + 1] = points[(i + 0) * 3 + 1]
+		positions[(i * 2 + 1) * 3 + 2] = points[(i + 0) * 3 + 2]
 		
 		normals[(i * 2 + 0) * 3 + 0] = 0
 		normals[(i * 2 + 0) * 3 + 1] = -1
@@ -25,10 +27,10 @@ function Neon(options)
 		normals[(i * 2 + 1) * 3 + 2] = 0
 		
 		var prevIndex = (i > 0) ? i - 1 : i
-		var nextIndex = (i < plopYopPoints.length - 1) ? i + 1 : i
+		var nextIndex = (i < points.length - 1) ? i + 1 : i
 		
-		var prevPoint = vec3.clone(plopYopPoints.slice(prevIndex * 3, prevIndex * 3 + 3))
-		var nextPoint = vec3.clone(plopYopPoints.slice(nextIndex * 3, nextIndex * 3 + 3))
+		var prevPoint = vec3.clone(points.slice(prevIndex * 3, prevIndex * 3 + 3))
+		var nextPoint = vec3.clone(points.slice(nextIndex * 3, nextIndex * 3 + 3))
 		var tangent = vec3.create()
 		vec3.subtract(tangent, nextPoint, prevPoint)
 		vec3.normalize(tangent, tangent)
@@ -61,7 +63,8 @@ Neon.prototype.render = function(time, renderParameters)
 	this.shader.setMat4Uniform("viewProjectionMatrix", renderParameters.camera.viewProjectionMatrix)
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)
 	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)
-	this.shader.setVec3Uniform("origin", [0, 0, -30])
+	this.shader.setVec3Uniform("origin", this.origin)
+	this.shader.setVec3Uniform("cameraZ", renderParameters.camera.axisZ)
 	
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")

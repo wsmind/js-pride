@@ -57,6 +57,16 @@ function Camera()
 	Object.defineProperty(this, "viewProjectionMatrix", {
 		get: function() { return mat4.clone(this._viewProjectionMatrix) }
 	})
+	
+	Object.defineProperty(this, "axisZ", {
+		get: function()
+		{
+			var result = vec3.create()
+			vec3.subtract(result, result, this._origin, this._target)
+			vec3.normalize(result, result)
+			return result
+		}
+	})
 }
 
 Camera.prototype._rebuildMatrix = function()

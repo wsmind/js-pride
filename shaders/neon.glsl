@@ -10,6 +10,7 @@ uniform float spaceFactor;
 uniform mat4 viewMatrix;
 uniform mat4 viewProjectionMatrix;
 uniform vec3 sunDirection;
+uniform vec3 cameraZ;
 
 varying vec3 fragNormal;
 varying vec3 fragTangent;
@@ -22,9 +23,9 @@ attribute vec3 tangent;
 
 void main(void)
 {
-	vec3 cameraZ = (viewMatrix * vec4(0.0, 0.0, -1.0, 0.0)).xyz;
+	//vec3 cameraZ = (viewMatrix * vec4(0.0, 0.0, -1.0, 0.0)).xyz;
 	vec3 normal = cross(cameraZ, tangent);
-	vec3 worldPosition = origin + position + normal * exp(-mod(time, 1.0)) * 0.4;
+	vec3 worldPosition = origin + position + normal * 0.1;// * exp(-mod(time, 1.0)) * 0.2;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	fragNormal = normal;
 	fragTangent = tangent * 0.5 + 0.5;

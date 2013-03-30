@@ -58,7 +58,7 @@ function Timeline(duration)
 				{
 					start: 0,
 					duration: 320,
-					instance: new StreetCamera({})
+					instance: new GreetsCamera({})
 				},
 				{
 					start: 320,
@@ -129,12 +129,22 @@ function Timeline(duration)
 			]
 		},
 		{
+			name: "special buildings",
+			clips: [
+				{
+					start: 0,
+					duration: 320,
+					instance: new GreetsTower()
+				}
+			]
+		},
+		{
 			name: "cool fx",
 			clips: [
 				{
 					start: 0,
 					duration: 320,
-					instance: new Neon()
+					instance: new Neon({points: plopAdinpszPoints})
 				},
 				{
 					start: 320,
