@@ -9,6 +9,7 @@ function Neon(options)
 	var positions = new Float32Array(points.length * 2)
 	var normals = new Float32Array(points.length * 2)
 	var tangents = new Float32Array(points.length * 2)
+	var progress = new Float32Array(points.length * 2 / 3)
 	
 	for (var i = 0; i < points.length; i++)
 	{
@@ -41,11 +42,15 @@ function Neon(options)
 		tangents[(i * 2 + 1) * 3 + 0] = -tangent[0]
 		tangents[(i * 2 + 1) * 3 + 1] = -tangent[1]
 		tangents[(i * 2 + 1) * 3 + 2] = -tangent[2]
+		
+		progress[i * 2 + 0] = i / points.length
+		progress[i * 2 + 1] = i / points.length
 	}
 	
 	this.positions = new VertexBuffer(3, gl.FLOAT, new Float32Array(positions))
 	this.normals = new VertexBuffer(3, gl.FLOAT, new Float32Array(normals))
 	this.tangents = new VertexBuffer(3, gl.FLOAT, new Float32Array(tangents))
+	this.progress = new VertexBuffer(1, gl.FLOAT, new Float32Array(progress))
 }
 
 Neon.prototype.render = function(time, renderParameters)
@@ -56,6 +61,8 @@ Neon.prototype.render = function(time, renderParameters)
 	
 	gl.enable(gl.BLEND)
 	gl.blendFunc(gl.ONE, gl.ONE)
+	
+	gl.disable(gl.CULL_FACE)
 	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
@@ -69,10 +76,12 @@ Neon.prototype.render = function(time, renderParameters)
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")
 	var tangentAttribute = this.shader.getAttributeLocation("tangent")
+	var progressAttribute = this.shader.getAttributeLocation("progress")
 	
 	this.positions.bind(positionAttribute)
 	this.normals.bind(normalAttribute)
 	this.tangents.bind(tangentAttribute)
+	this.progress.bind(progressAttribute)
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.positions.itemCount)
 	
 	gl.disable(gl.BLEND)

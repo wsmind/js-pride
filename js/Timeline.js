@@ -52,32 +52,63 @@ function Timeline(duration)
 				}
 			]
 		},*/
+		
+		// SECTIONS
+		//   Intro             0 - 32 (32)
+		//   Construction      32 - 160 (128)
+		//   Lonely rainbow    160 - 194 (32)
+		//   Party rainbow     194 - 416 (224)
+		//   Bastille          416 - 480 (64)
 		{
 			name: "camera",
 			clips: [
 				{
 					start: 0,
-					duration: 320,
-					instance: new GreetsCamera({})
+					duration: 32,
+					instance: new FixedCamera({
+						origin: [0, 2, 10],
+						target: [0, 2, 0],
+						fov: Math.PI * 0.12
+					})
 				},
 				{
-					start: 320,
+					start: 32,
+					duration: 128,
+					instance: new StreetCamera({})
+				},
+				/*{
+					start: 160,
 					duration: 32,
+					instance: new No Camera needed here!({})
+				},*/
+				/*{
+					start: 194,
+					duration: 224,
 					instance: new FixedCamera({
 						origin: [0, 7, 40],
 						target: [0, 7, 0],
 						fov: Math.PI * 0.12
 					})
+				},*/
+				{
+					start: 194,
+					duration: 224,
+					instance: new StreetCamera({})
 				},
 				{
-					start: 384,
-					duration: 32,
+					start: 416,
+					duration: 64,
+					instance: new GreetsCamera({})
+				}
+				/*{
+					start: 416,
+					duration: 64,
 					instance: new FixedCamera({
 						origin: [0, 120, 3],
 						target: [0, 1, 2],
 						fov: Math.PI * 0.16
 					})
-				}
+				}*/
 			]
 		},
 		{
@@ -85,10 +116,10 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 400,
+					duration: 480,
 					instance: new Environment({
 						initialTime: 3, // [0-24[
-						speed: 0.2, // hr/sec, so to say ;)
+						speed: 24 / 480, // hr/beat, so to say ;)
 					})
 				}
 			]
@@ -98,7 +129,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 320,
+					duration: 480,
 					instance: new Ground()
 				}
 			]
@@ -108,22 +139,27 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 320,
+					duration: 480,
 					instance: new Sky()
-				},
+				}/*,
 				{
 					start: 320,
 					duration: 32,
 					instance: new Background()
-				}
+				}*/
 			]
 		},
 		{
 			name: "buildings",
 			clips: [
 				{
-					start: 0,
-					duration: 320,
+					start: 32,
+					duration: 128,
+					instance: new Town()
+				},
+				{
+					start: 194,
+					duration: 224,
 					instance: new Town()
 				}
 			]
@@ -132,8 +168,8 @@ function Timeline(duration)
 			name: "special buildings",
 			clips: [
 				{
-					start: 0,
-					duration: 320,
+					start: 416,
+					duration: 64,
 					instance: new GreetsTower()
 				}
 			]
@@ -142,11 +178,11 @@ function Timeline(duration)
 			name: "cool fx",
 			clips: [
 				{
-					start: 0,
-					duration: 320,
-					instance: new Neon({points: plopVitalmotionPoints})
+					start: 194,
+					duration: 224,
+					instance: new Neon({points: neonVitalmotionPoints})
 				},
-				{
+				/*{
 					start: 320,
 					duration: 32,
 					instance: new Equalizer()
@@ -155,7 +191,7 @@ function Timeline(duration)
 					start: 384,
 					duration: 32,
 					instance: new BuildingText("JS-PRIDE")
-				}
+				}*/
 			]
 		}
 	]
