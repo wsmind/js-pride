@@ -2,7 +2,7 @@
 
 function GreetsCamera(options)
 {
-	this.radius = options.radius || 2.0
+	this.radius = options.radius || 4.0
 	this.speed = options.speed || 0.4
 }
 

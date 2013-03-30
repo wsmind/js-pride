@@ -12,6 +12,9 @@ function GreetsTower(options)
 	
 	this.neons = []
 	this.neons.push(new Neon({points: plopAdinpszPoints, origin: [0, 3, 0.2]}))
+	this.neons.push(new Neon({points: plopAdinpszPoints, origin: [0, 7, 0.2]}))
+	this.neons.push(new Neon({points: plopAdinpszPoints, origin: [0, 9, 0.2]}))
+	this.neons.push(new Neon({points: plopAdinpszPoints, origin: [0, 12, 0.2]}))
 }
 
 GreetsTower.prototype.render = function(time, renderParameters)
@@ -30,9 +33,9 @@ GreetsTower.prototype.render = function(time, renderParameters)
 	var normalAttribute = this.shader.getAttributeLocation("normal")
 	
 	var beat = Math.exp(-(time % 1.0))
-	this.shader.setVec3Uniform("origin", [0, 0, 0])
+	this.shader.setVec3Uniform("origin", [-0.5, 0, 1.5])
 	this.shader.setFloatUniform("scale", 1.0)
-	this.shader.setFloatUniform("rainbowFactor", beat)
+	this.shader.setFloatUniform("rainbowFactor", beat * 0.1)
 	this.building.render(positionAttribute, normalAttribute)
 	
 	for (var i = 0; i < this.neons.length; i++)
