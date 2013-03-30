@@ -29,11 +29,11 @@ function Town(options)
 	}*/
 	
 	this.models = []
-	for (var depth = 2; depth < 7; depth++)
+	for (var size = 2; size < 7; size++)
 	{
 		this.models.push(new Building({
-			width: 2,
-			depth: depth,
+			width: size,
+			depth: size,
 			floors: 5
 		}))
 	}
@@ -48,7 +48,7 @@ function Town(options)
 			size: size
 		})
 		this.buildings.push({
-			origin: [-4, 0, currentZ],
+			origin: [-4 - size, 0, currentZ],
 			size: size
 		})
 		currentZ -= size
@@ -94,9 +94,10 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("scale", 1.0)
 		//this.shader.setFloatUniform("rainbowFactor", 0.0)
 		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
-		this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
+		//this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
+		this.shader.setFloatUniform("rainbowFactor", beat * 0.2)
 		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
-		this.shader.setFloatUniform("spaceFactor", 0)
+		this.shader.setFloatUniform("spaceFactor", Math.exp(vec3.distance(building.origin, renderParameters.camera.origin) - 20.0) * 0.01)
 		this.models[building.size - 2].render(positionAttribute, normalAttribute)
 	}
 	

@@ -65,8 +65,10 @@ Building.prototype.buildWall = function(builder, origin, length, height, angle)
 			{
 				if (y == height - 1)
 					builder.appendMeshBuffer(roofCornerMeshBuffer, position, angle)
-				else
+				else if (y > 0)
 					builder.appendMeshBuffer(cornerMeshBuffer, position, angle)
+				else
+					builder.appendMeshBuffer(cornerBottomMeshBuffer, position, angle)
 			}
 			else
 			{
@@ -75,7 +77,12 @@ Building.prototype.buildWall = function(builder, origin, length, height, angle)
 				else if (y > 0)
 					builder.appendMeshBuffer(windowMeshBuffer, position, angle)
 				else
-					builder.appendMeshBuffer(doorMeshBuffer, position, angle)
+				{
+					if (Math.random() >= 0.5)
+						builder.appendMeshBuffer(doorMeshBuffer, position, angle)
+					else
+						builder.appendMeshBuffer(otherBottomMeshBuffer, position, angle)
+				}
 			}
 		}
 	}

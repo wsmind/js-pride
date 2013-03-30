@@ -114,7 +114,7 @@ function Timeline(duration)
 				{
 					start: 0,
 					duration: 320,
-					instance: new Town()
+					instance: new Neon()
 				},
 				{
 					start: 320,
