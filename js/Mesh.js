@@ -8,7 +8,7 @@ function Mesh(meshBuffer)
 	this.vertexCount = meshBuffer.indices.length
 	this.positions = new VertexBuffer(3, gl.FLOAT, new Float32Array(meshBuffer.positions))
 	this.normals = new VertexBuffer(3, gl.FLOAT, new Float32Array(meshBuffer.normals))
-	this.indices = new IndexBuffer(new Uint16Array(meshBuffer.indices))
+	this.indices = new IndexBuffer(new Uint32Array(meshBuffer.indices))
 }
 
 Mesh.prototype.render = function(positionAttribute, normalAttribute)
@@ -22,7 +22,7 @@ Mesh.prototype.render = function(positionAttribute, normalAttribute)
 	if (this.indices)
 	{
 		this.indices.bind()
-		gl.drawElements(this.primitiveType, this.vertexCount, gl.UNSIGNED_SHORT, 0)
+		gl.drawElements(this.primitiveType, this.vertexCount, gl.UNSIGNED_INT, 0)
 	}
 	else
 	{

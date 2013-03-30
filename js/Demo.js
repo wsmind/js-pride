@@ -2,6 +2,11 @@
 
 function Demo()
 {
+	if (!gl.getExtension("OES_element_index_uint"))
+	{
+		alert("Your browser does not support OES_element_index_uint!")
+	}
+	
 	// load sound
 	this.audio = new Audio()
 	this.audio.src = "music/Pissaladiere04_mix.mp3"

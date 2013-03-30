@@ -7,7 +7,7 @@ function GreetsTower(options)
 	this.building = new Building({
 		width: 3,
 		depth: 3,
-		floors: 50
+		floors: 40
 	})
 	
 	this.neons = []
