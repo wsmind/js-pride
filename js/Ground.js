@@ -17,9 +17,11 @@ Ground.prototype.render = function(time, renderParameters)
 	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
+	this.shader.setFloatUniform("pulseIntensity", renderParameters.pulseIntensity)
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)
 	this.shader.setMat4Uniform("viewProjectionMatrix", renderParameters.camera.viewProjectionMatrix)
 	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)
+	this.shader.setVec3Uniform("cameraPosition", renderParameters.camera.origin)
 	
 	this.shader.setFloatUniform("stride", this._size + 1)
 	

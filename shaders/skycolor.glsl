@@ -6,7 +6,7 @@ vec3 rayleighCoefficient = vec3(5.8e-6, 13.5e-6, 33.1e-6);
 // color of the sun
 vec3 sunColor = vec3(10.0, 10.0, 10.0);
 
-float pulseIntensity = 0.2;
+uniform float pulseIntensity;
 
 // probability that scattering changes the direction of the photon of the given angle
 // per meter and steradian (m-1sr-1)
@@ -68,7 +68,7 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 vec3 sunLight(vec3 viewDirection, vec3 sunDirection)
 {
 	float cosAngle = dot(sunDirection, viewDirection);
-	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 1000.0 + (1.0 - exp(-mod(time, 1.0))) * 3000.0);
+	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 1000.0 + pulseIntensity * (1.0 - exp(-mod(time, 1.0))) * 3000.0);
 	
 	return sun;
 }

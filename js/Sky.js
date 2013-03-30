@@ -16,6 +16,8 @@ Sky.prototype.render = function(time, renderParameters)
 	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
+	this.shader.setFloatUniform("pulseIntensity", renderParameters.pulseIntensity)
+	this.shader.setFloatUniform("tanFov", Math.tan(renderParameters.camera.fov * 0.5))
 	this.shader.setVec2Uniform("resolution", [canvas.width, canvas.height])
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)
 	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)

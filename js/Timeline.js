@@ -66,9 +66,9 @@ function Timeline(duration)
 					start: 0,
 					duration: 32,
 					instance: new FixedCamera({
-						origin: [0, 2, 10],
+						origin: [0, 2, -10],
 						target: [0, 2, 0],
-						fov: Math.PI * 0.12
+						fov: Math.PI * 0.4
 					})
 				},
 				{
@@ -118,7 +118,7 @@ function Timeline(duration)
 					start: 0,
 					duration: 480,
 					instance: new Environment({
-						initialTime: 3, // [0-24[
+						initialTime: 5, // [0-24[
 						speed: 24 / 480, // hr/beat, so to say ;)
 					})
 				}
