@@ -61,6 +61,7 @@ Demo.prototype.update = function()
 		return
 	
 	var demoTime = this.audio.currentTime * this.bpm / 60.0
+	//$(".clips li").text(demoTime)
 	
 	this._updateCursor(demoTime)
 	

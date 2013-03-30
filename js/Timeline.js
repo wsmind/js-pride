@@ -119,7 +119,17 @@ function Timeline(duration)
 			]
 		},
 		{
-			name: "cool bro",
+			name: "buildings",
+			clips: [
+				{
+					start: 0,
+					duration: 320,
+					instance: new Town()
+				}
+			]
+		},
+		{
+			name: "cool fx",
 			clips: [
 				{
 					start: 0,
