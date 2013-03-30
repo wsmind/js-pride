@@ -20,7 +20,7 @@ attribute vec3 normal;
 
 void main(void)
 {
-	vec3 worldPosition = position + normal * 0.2;
+	vec3 worldPosition = position + normal * 1.2;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);
 	fragNormal = normal;
 }
@@ -29,6 +29,6 @@ void main(void)
 
 void main()
 {
-	vec3 color = vec3(0.0, abs(fragNormal.y), 0.0);
+	vec3 color = vec3(0.0, pow(1.0 - abs(fragNormal.y), 2.0) * 0.8 * sin(time * time), 0.0);
 	gl_FragColor = vec4(color, 1.0);
 }
