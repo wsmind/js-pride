@@ -64,6 +64,7 @@ Town.prototype.render = function(time, renderParameters)
 	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
+	this.shader.setFloatUniform("pulseIntensity", renderParameters.pulseIntensity)
 	this.shader.setFloatUniform("ratio", renderParameters.camera.aspect)
 	this.shader.setMat4Uniform("viewProjectionMatrix", renderParameters.camera.viewProjectionMatrix)
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)

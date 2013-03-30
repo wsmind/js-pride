@@ -10,7 +10,7 @@ for obj in bpy.data.objects:
 	mesh = obj.to_mesh(scene = bpy.context.scene, apply_modifiers = True, settings = "PREVIEW")
 	
 	#for mesh in bpy.data.meshes:
-	if obj.name[:4] == "plop":
+	if obj.name[:4] == "neon":
 		f.write("var " + obj.name + "Points=")
 		f.write('[')
 		for i in range(0, len(mesh.vertices)):

@@ -13,14 +13,13 @@ function Demo()
 	//this.audio.volume = 0
 	this.bpm = 128
 	
-	this.audio.play()
-	
 	var self = this
 	this.audio.addEventListener("loadedmetadata", function()
 	{
 		// wait to have the actual audio duration (not NaN)
 		self.beatDuration = self.audio.duration * self.bpm / 60.0
 		self.timeline = new Timeline(self.beatDuration)
+		self.audio.play()
 	})
 	
 	$(window).keydown(function(event)

@@ -11,10 +11,10 @@ function GreetsTower(options)
 	})
 	
 	this.neons = []
-	this.neons.push(new Neon({points: plopVitalmotionPoints, origin: [1, 3, -3]}))
-	this.neons.push(new Neon({points: plopVitalmotionPoints, origin: [1, 7, -3]}))
-	this.neons.push(new Neon({points: plopVitalmotionPoints, origin: [1, 9, -3]}))
-	this.neons.push(new Neon({points: plopVitalmotionPoints, origin: [1, 12, -3]}))
+	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 3, -3]}))
+	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 7, -3]}))
+	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 9, -3]}))
+	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 12, -3]}))
 }
 
 GreetsTower.prototype.render = function(time, renderParameters)

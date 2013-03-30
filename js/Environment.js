@@ -15,4 +15,6 @@ Environment.prototype.render = function(time, renderParameters)
 	var sun = vec3.clone([0.2, -Math.cos(currentPhase), Math.sin(currentPhase)])
 	vec3.normalize(sun, sun)
 	renderParameters.sunDirection = sun
+	
+	renderParameters.pulseIntensity = (time > 32) ? 0.2 : 0.0
 }
