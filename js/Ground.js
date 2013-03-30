@@ -11,6 +11,10 @@ function Ground(options)
 
 Ground.prototype.render = function(time, renderParameters)
 {
+	gl.enable(gl.DEPTH_TEST)
+	gl.depthFunc(gl.LEQUAL)
+	gl.depthMask(true)
+	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)

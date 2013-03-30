@@ -94,6 +94,16 @@ function Timeline(duration)
 			]
 		},
 		{
+			name: "ground",
+			clips: [
+				{
+					start: 0,
+					duration: 320,
+					instance: new Ground()
+				}
+			]
+		},
+		{
 			name: "background",
 			clips: [
 				{
@@ -125,16 +135,6 @@ function Timeline(duration)
 					start: 384,
 					duration: 32,
 					instance: new BuildingText("JS-PRIDE")
-				}
-			]
-		},
-		{
-			name: "ground",
-			clips: [
-				{
-					start: 0,
-					duration: 320,
-					instance: new Ground()
 				}
 			]
 		}

@@ -61,7 +61,7 @@ Neon.prototype.render = function(time, renderParameters)
 	this.shader.setMat4Uniform("viewProjectionMatrix", renderParameters.camera.viewProjectionMatrix)
 	this.shader.setMat4Uniform("viewMatrix", renderParameters.camera.viewMatrix)
 	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)
-	this.shader.setVec3Uniform("origin", [0, 0, 0])
+	this.shader.setVec3Uniform("origin", [0, 0, -30])
 	
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	var normalAttribute = this.shader.getAttributeLocation("normal")
