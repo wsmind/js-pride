@@ -144,7 +144,7 @@ function Timeline(duration)
 				{
 					start: 0,
 					duration: 320,
-					instance: new Neon({points: plopAdinpszPoints})
+					instance: new Neon({points: plopVitalmotionPoints})
 				},
 				{
 					start: 320,

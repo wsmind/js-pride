@@ -63,7 +63,7 @@ function exportMeshes(callback)
 	{
 		assert(code == 0)
 		
-		var exporter2 = child_process.spawn("C:/Program Files/Blender Foundation/Blender/blender.exe", ["-b", "meshes/door.blend", "-P", "export-meshes.py"])
+		var exporter2 = child_process.spawn("C:/Program Files/Blender Foundation/Blender/blender.exe", ["-b", "meshes/greets.blend", "-P", "export-meshes.py"])
 		exporter2.on("exit", function(code)
 		{
 			assert(code == 0)
