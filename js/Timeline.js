@@ -195,7 +195,7 @@ function Timeline(duration)
 				{
 					start: 0,
 					duration: 32,
-					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5]})
+					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5], direction: [-0.7, 0, 0.7]})
 				},
 				/*{
 					start: 0,

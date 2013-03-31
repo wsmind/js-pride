@@ -80,6 +80,7 @@ Neon.prototype.render = function(time, renderParameters)
 	this.shader.setVec3Uniform("sunDirection", renderParameters.sunDirection)
 	this.shader.setVec3Uniform("origin", this.origin)
 	this.shader.setVec3Uniform("cameraZ", this.planeNormal)
+	this.shader.setVec3Uniform("direction", this.direction)
 	
 	var positionAttribute = this.shader.getAttributeLocation("position")
 	//var normalAttribute = this.shader.getAttributeLocation("normal")
