@@ -99,7 +99,7 @@ function Timeline(duration)
 				},
 				{
 					start: 384,
-					duration: 64+32+8,
+					duration: 64+32+16,
 					instance: new GreetsCamera({})
 				}
 				/*{
@@ -118,7 +118,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 480 + 8,
+					duration: 480 + 16,
 					instance: new Environment({
 						initialTime: 5, // [0-24[
 						speed: 24 / 480, // hr/beat, so to say ;)
@@ -167,7 +167,7 @@ function Timeline(duration)
 				},
 				{
 					start: 288+16*3,
-					duration: 64+32+8+48,
+					duration: 64+32+16+48,
 					instance: new Sky()
 				}
 			]
@@ -197,7 +197,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 416-32,
-					duration: 64+32+8,
+					duration: 64+32+16,
 					instance: new GreetsTower()
 				}
 			]
