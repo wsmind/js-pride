@@ -21,8 +21,8 @@ function GreetsTower(options)
 	this.neons.push(new Neon({points: neonLnxPoints, 		origin: [0, 28, 1.7], 	direction: [1, 0, 0]}))
 	this.neons.push(new Neon({points: neonZuulPoints, 		origin: [1.6, 30, 1], 	direction: [-1, 0, 0]}))
 
-	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 37, -1.7], 	direction: [-1, 0, 0]}))
-	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 38, 1.7], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 38, 1.7], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 39.5, 1.7], 	direction: [0.707, 0, 0]}))
 
 }
 
