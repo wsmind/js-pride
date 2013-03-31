@@ -38,8 +38,10 @@ function Town(options)
 		}))
 	}
 	
-	var currentZ = 0
 	this.buildings = []
+	this.streets = []
+	
+	/*var currentZ = 0
 	for (var i = 0; i < 20; i++)
 	{
 		var size = Math.floor(Math.random() * 4) + 2
@@ -52,12 +54,81 @@ function Town(options)
 			size: size
 		})
 		currentZ -= size
-	}
+	}*/
 	//this.buildings.push(new Building({origin: [0, 0, 0]}))
+	
+	var buildingsPerStreet = 20
+	var streetWidth = 2
+	
+	var currentPosition = [0, 0]
+	var currentDirection = [0, -1]
+	for (var street = 0; street < 20; street++)
+	{
+		this.streets.push({
+			position: vec2.clone(currentPosition),
+			direction: vec2.clone(currentDirection),
+			time: street * buildingsPerStreet
+		})
+		
+		var side = [-currentDirection[1], currentDirection[0]]
+		
+		// generate buildings along this streeet
+		for (var i = 0; i < buildingsPerStreet; i++)
+		{
+			// random size
+			var size = Math.floor(Math.random() * 4) + 2
+			
+			// add one building
+			var building = {
+				origin: [currentPosition[0] + side[0] * streetWidth - ((side[0] < 0) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth - ((side[1] < 0) ? size : 0)],
+				size: size,
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
+			}
+			
+			if (building.time < 0)
+				building.time = 0
+			
+			this.buildings.push(building)
+			
+			// and the one across the road
+			var building = {
+				origin: [currentPosition[0] - side[0] * streetWidth - ((side[0] > 0) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth - ((side[1] > 0) ? size : 0)],
+				size: size,
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
+			}
+			
+			if (building.time < 0)
+				building.time = 0
+			
+			this.buildings.push(building)
+			
+			/*this.buildings.push({
+				origin: [-4 - size, 0, currentZ],
+				size: size
+			})*/
+			
+			vec2.add(currentPosition, currentPosition, [currentDirection[0] * size, currentDirection[1] * size])
+		}
+		
+		// go to intersection center
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		
+		// change direction randomly
+		if (Math.random() >= 0.33)
+			vec3.copy(currentDirection, side)
+		else if (Math.random() >= 0.33)
+			vec3.copy(currentDirection, [-side[0], -side[1]])
+		
+		// go to new street start
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		
+	}
 }
 
 Town.prototype.render = function(time, renderParameters)
 {
+	window.streets = this.streets
+	
 	gl.enable(gl.DEPTH_TEST)
 	gl.depthFunc(gl.LEQUAL)
 	gl.depthMask(true)
@@ -87,10 +158,17 @@ Town.prototype.render = function(time, renderParameters)
 		building.render(positionAttribute, normalAttribute)
 	}*/
 	
+	var fallingTime = 2
+	
 	var beat = Math.exp(-(time % 1.0))
 	for (var i = 0; i < this.buildings.length; i++)
 	{
 		var building = this.buildings[i]
+		if (building.time - time > fallingTime)
+			continue
+		if (time - building.time > 10)
+			continue
+		
 		this.shader.setVec3Uniform("origin", building.origin)
 		//this.shader.setFloatUniform("scale", 1.0)
 		//this.shader.setFloatUniform("rainbowFactor", 0.0)
@@ -98,7 +176,12 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
 		this.shader.setFloatUniform("rainbowFactor", beat * 0.2)
 		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
-		this.shader.setFloatUniform("spaceFactor", Math.exp(vec3.distance(building.origin, renderParameters.camera.origin) - 20.0) * 0.01)
+		//this.shader.setFloatUniform("spaceFactor", Math.exp(vec3.distance(building.origin, renderParameters.camera.origin) - 20.0) * 0.01)
+		
+		var bTime = (time - building.time + fallingTime) / fallingTime
+		if (bTime < 0) bTime = 0
+		if (bTime > 1) bTime = 1
+		this.shader.setFloatUniform("spaceFactor", 1.0 - bTime * bTime)
 		this.models[building.size - 2].render(positionAttribute, normalAttribute)
 	}
 	
