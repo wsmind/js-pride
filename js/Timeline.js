@@ -194,7 +194,7 @@ function Timeline(duration)
 				{
 					start: 144,
 					duration: 16,
-					instance: new BuildingText("JS-PRIDE")
+					instance: new BuildingText("MODRAW")
 				},
 				{
 					start: 0,
