@@ -79,11 +79,7 @@ function Timeline(duration)
 				{
 					start: 144,
 					duration: 64,
-					instance: new FixedCamera({
-						origin: [0, 120, 3],
-						target: [0, 1, 2],
-						fov: Math.PI * 0.16
-					})
+					instance: new TextCamera({})
 				},
 				/*{
 					start: 160,
