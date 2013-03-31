@@ -73,8 +73,17 @@ function Timeline(duration)
 				},
 				{
 					start: 32,
-					duration: 128,
+					duration: 112,
 					instance: new StreetCamera({})
+				},
+				{
+					start: 144,
+					duration: 64,
+					instance: new FixedCamera({
+						origin: [0, 120, 3],
+						target: [0, 1, 2],
+						fov: Math.PI * 0.16
+					})
 				},
 				/*{
 					start: 160,
@@ -183,6 +192,11 @@ function Timeline(duration)
 					instance: new Neon({points: neonVitalmotionPoints})
 				},
 				{
+					start: 144,
+					duration: 16,
+					instance: new BuildingText("JS-PRIDE")
+				},
+				{
 					start: 0,
 					duration: 32,
 					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5]})
@@ -191,12 +205,7 @@ function Timeline(duration)
 					start: 0,
 					duration: 32,
 					instance: new Equalizer()
-				},
-				{
-					start: 384,
-					duration: 32,
-					instance: new BuildingText("JS-PRIDE")
-				}*/
+				},*/
 			]
 		}
 	]
