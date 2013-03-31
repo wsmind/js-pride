@@ -16,6 +16,12 @@ function Camera()
 		set: function(target) { vec3.copy(this._target, target); this._rebuildMatrix() }
 	})
 	
+	this._up = vec3.clone([0, 1, 0])
+	Object.defineProperty(this, "up", {
+		get: function() { return vec3.clone(this._up) },
+		set: function(up) { vec3.copy(this._up, up); this._rebuildMatrix() }
+	})
+	
 	// projection parameters
 	
 	this._fov = Math.PI * 0.5
@@ -71,7 +77,7 @@ function Camera()
 
 Camera.prototype._rebuildMatrix = function()
 {
-	mat4.lookAt(this._viewMatrix, this._origin, this._target, [0, 1, 0])
+	mat4.lookAt(this._viewMatrix, this._origin, this._target, this._up)
 	mat4.perspective(this._projectionMatrix, this._fov, this._aspect, this._nearPlane, this._farPlane)
 	mat4.multiply(this._viewProjectionMatrix, this._projectionMatrix, this._viewMatrix)
 }

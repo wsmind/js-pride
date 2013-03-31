@@ -44,6 +44,16 @@ function Timeline(duration)
 					instance: new StreetCamera({})
 				},
 				{
+					start: 96,
+					duration: 32,
+					instance: new FixedCamera({
+						origin: [0, 7, 40],
+						target: [0, 7, 0],
+						fov: Math.PI * 0.12,
+						shake: 1.0
+					})
+				},
+				{
 					start: 144,
 					duration: 16,
 					instance: new TextCamera({})
@@ -52,15 +62,6 @@ function Timeline(duration)
 					start: 160,
 					duration: 32,
 					instance: new No Camera needed here!({})
-				},*/
-				/*{
-					start: 194,
-					duration: 224,
-					instance: new FixedCamera({
-						origin: [0, 7, 40],
-						target: [0, 7, 0],
-						fov: Math.PI * 0.12
-					})
 				},*/
 				{
 					start: 194,
@@ -116,7 +117,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 144,
+					duration: 96,
 					instance: new Ground()
 				}
 			]
@@ -126,14 +127,14 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 144,
+					duration: 96,
 					instance: new Sky()
-				}/*,
+				},
 				{
-					start: 320,
+					start: 96,
 					duration: 32,
 					instance: new Background()
-				}*/
+				}
 			]
 		},
 		{
@@ -141,7 +142,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 32,
-					duration: 128,
+					duration: 64,
 					instance: new Town()
 				},
 				{
@@ -164,6 +165,11 @@ function Timeline(duration)
 		{
 			name: "cool fx",
 			clips: [
+				{
+					start: 96,
+					duration: 32,
+					instance: new Equalizer()
+				},
 				{
 					start: 144,
 					duration: 16,
@@ -193,11 +199,6 @@ function Timeline(duration)
 					start: 0,
 					duration: 32,
 					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5], direction: [-0.7, 0, 0.7]})
-				},*/
-				/*{
-					start: 0,
-					duration: 32,
-					instance: new Equalizer()
 				},*/
 			]
 		}
