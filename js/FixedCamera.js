@@ -19,7 +19,7 @@ FixedCamera.prototype.render = function(time, renderParameters)
 	renderParameters.camera.fov = this.fov + (1.0 - Math.exp(-lastStep)) * this.shake * 0.2
 	
 	var up = renderParameters.camera.up
-	up[0] = lastStep * (rand - 0.5) * 3.0
+	up[0] = this.shake * lastStep * (rand - 0.5) * 3.0
 	vec3.normalize(up, up)
 	renderParameters.camera.up = up
 }

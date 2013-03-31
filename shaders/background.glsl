@@ -137,7 +137,8 @@ void main(void)
    float diffuse = max(dot(normal, vec3(0.707, 0.707, 0.0)), 0.0);
    //outColor = mix(color * diffuse * occlusion + mix(reflectColor, skyColor, reflectFogFactor) * 0.2, skyColor, fogFactor);
    //outColor = mix(color * diffuse * occlusion + skyColor * reflectFogFactor * 0.3, skyColor, fogFactor);
-   outColor = mix(color * diffuse * occlusion, rainbow(gl_FragCoord.y / res.y + sin(time + gl_FragCoord.x * 10.0 / res.x) * 0.1), fogFactor);
+   //rainbow(gl_FragCoord.y / res.y + sin(time + gl_FragCoord.x * 10.0 / res.x) * 0.1)
+   outColor = mix(color * diffuse * occlusion, vec3(0.8, 0.8, 0.8), fogFactor);
 //   outColor = vec3(occlusion, 0.0, 0.0);
 	
    gl_FragColor = vec4(outColor, 1.0);
