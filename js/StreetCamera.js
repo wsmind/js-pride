@@ -24,7 +24,7 @@ StreetCamera.prototype.render = function(time, renderParameters)
 					var pos = vec2.create()
 					
 					var t = (time - street.time) / (nextStreet.time - street.time)
-					var coeff = Math.sqrt(1 - t) * (1.0 + Math.sin(time))
+					var coeff = Math.sqrt(1 - t) * (1.0 + Math.sin(time)) * 0.8
 					vec2.lerp(pos, street.position, nextStreet.position, t)
 					vec2.add(pos, pos, [-nextStreet.direction[0] * coeff, -nextStreet.direction[1] * coeff])
 					

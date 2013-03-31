@@ -28,6 +28,9 @@ function Town(options)
 		}
 	}*/
 	
+	this.rainbow = options.rainbow || 0.2
+	this.space = options.space || 0.0
+	
 	this.models = []
 	for (var size = 2; size < 7; size++)
 	{
@@ -168,14 +171,14 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("rainbowFactor", 0.0)
 		this.shader.setFloatUniform("scale", 1.0 + Math.sin(building.origin[2] * 2.0 + time * 0.25) * 0.2)
 		//this.shader.setFloatUniform("rainbowFactor", beat * 0.2 + Math.max(i - time, 0) * 0.8)
-		this.shader.setFloatUniform("rainbowFactor", beat * 0.2)
+		this.shader.setFloatUniform("rainbowFactor", beat * this.rainbow)
 		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
 		//this.shader.setFloatUniform("spaceFactor", Math.exp(vec3.distance(building.origin, renderParameters.camera.origin) - 20.0) * 0.01)
 		
 		var bTime = (time - building.time + fallingTime) / fallingTime
 		if (bTime < 0) bTime = 0
 		if (bTime > 1) bTime = 1
-		this.shader.setFloatUniform("spaceFactor", 1.0 - bTime * bTime)
+		this.shader.setFloatUniform("spaceFactor", (1.0 - bTime * bTime) * this.space)
 		this.models[building.size - 2].render(positionAttribute, normalAttribute)
 	}
 	

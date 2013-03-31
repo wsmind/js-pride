@@ -24,7 +24,7 @@ function Demo()
 		self.audio.play()
 	})
 	
-	$(window).keydown(function(event)
+	/*$(window).keydown(function(event)
 	{
 		if (String.fromCharCode(event.keyCode) == ' ')
 		{
@@ -37,7 +37,7 @@ function Demo()
 		}
 		
 		return true;
-	})
+	})*/
 	
 	$("#timeline .content").mousedown(function(downEvent)
 	{
@@ -69,7 +69,7 @@ Demo.prototype.update = function()
 	var demoTime = this.audio.currentTime * this.bpm / 60.0
 	//$(".clips li").text(demoTime)
 	
-	this._updateCursor(demoTime)
+	//this._updateCursor(demoTime)
 	
 	gl.clearColor(0.0, 0.0, 0.0, 1.0)
 	gl.clearDepth(1.0)

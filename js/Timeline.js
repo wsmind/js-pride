@@ -138,8 +138,12 @@ function Timeline(duration)
 					start: 192,
 					duration: 96,
 					instance: new Ground()
+				},
+				{
+					start: 336,
+					duration: 48,
+					instance: new Ground()
 				}
-
 			]
 		},
 		{
@@ -178,17 +182,17 @@ function Timeline(duration)
 				{
 					start: 32,
 					duration: 64,
-					instance: new Town()
+					instance: new Town({rainbow: 0.2, space: 1.0})
 				},
 				{
 					start: 192,
 					duration: 96,
-					instance: new Town()
+					instance: new Town({rainbow: 0.4, space: 0.0})
 				},
 				{
 					start: 336,
 					duration: 48,
-					instance: new Town()
+					instance: new Town({rainbow: 0.8, space: 0.0})
 				}
 			]
 		},
