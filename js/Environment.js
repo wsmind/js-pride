@@ -16,5 +16,5 @@ Environment.prototype.render = function(time, renderParameters)
 	vec3.normalize(sun, sun)
 	renderParameters.sunDirection = sun
 	
-	renderParameters.pulseIntensity = (time > 32) ? 0.2 : 0.0
+	renderParameters.pulseIntensity = (time > 24) ? 0.2 : 0.0
 }

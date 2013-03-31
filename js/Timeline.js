@@ -64,8 +64,8 @@ function Timeline(duration)
 					instance: new No Camera needed here!({})
 				},*/
 				{
-					start: 194,
-					duration: 94,
+					start: 192,
+					duration: 96,
 					instance: new StreetCamera({})
 				},
 				{
@@ -84,8 +84,13 @@ function Timeline(duration)
 					instance: new TextCamera({})
 				},
 				{
-					start: 416-32,
-					duration: 64+32,
+					start: 336,
+					duration: 48,
+					instance: new StreetCamera({})
+				},
+				{
+					start: 384,
+					duration: 64+32+8,
 					instance: new GreetsCamera({})
 				}
 				/*{
@@ -104,7 +109,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 480,
+					duration: 480 + 8,
 					instance: new Environment({
 						initialTime: 5, // [0-24[
 						speed: 24 / 480, // hr/beat, so to say ;)
@@ -121,13 +126,8 @@ function Timeline(duration)
 					instance: new Ground()
 				},
 				{
-					start: 194,
-					duration: 94,
-					instance: new Ground()
-				},
-				{
-					start: 416-32,
-					duration: 64+32,
+					start: 192,
+					duration: 96,
 					instance: new Ground()
 				}
 
@@ -143,12 +143,7 @@ function Timeline(duration)
 				},
 				{
 					start: 96,
-					duration: 32,
-					instance: new Background()
-				},
-				{
-					start: 96+32,
-					duration: 16*3,
+					duration: 32+16*3,
 					instance: new Background()
 				},
 				{
@@ -162,8 +157,8 @@ function Timeline(duration)
 					instance: new Background()
 				},
 				{
-					start: 416-32,
-					duration: 64+32,
+					start: 288+16*3,
+					duration: 64+32+8+48,
 					instance: new Sky()
 				}
 			]
@@ -177,8 +172,13 @@ function Timeline(duration)
 					instance: new Town()
 				},
 				{
-					start: 194,
-					duration: 94,
+					start: 192,
+					duration: 96,
+					instance: new Town()
+				},
+				{
+					start: 336,
+					duration: 48,
 					instance: new Town()
 				}
 			]
@@ -202,8 +202,8 @@ function Timeline(duration)
 					instance: new Equalizer()
 				},
 				{
-					start: 144,
-					duration: 16,
+					start: 144-16,
+					duration: 16+16,
 					instance: new BuildingText("JS-PRIDE")
 				},
 				{
