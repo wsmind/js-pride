@@ -238,7 +238,12 @@ function Timeline(duration)
 					start: 320,
 					duration: 16,
 					instance: new BuildingText("MODRAW")
-				}
+				},
+				{
+					start: 336,
+					duration: 48,
+					instance: new Rainbow()
+				},
 				/*{
 					start: 0,
 					duration: 32,

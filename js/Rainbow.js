@@ -20,6 +20,9 @@ function Rainbow()
 
 Rainbow.prototype.render = function(time)
 {
+	gl.disable(gl.DEPTH_TEST)
+	gl.depthMask(false)
+	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	
@@ -27,4 +30,6 @@ Rainbow.prototype.render = function(time)
 	this.mesh.bind(posAttribute)
 	
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.mesh.itemCount)
+	
+	gl.enable(gl.DEPTH_TEST)
 }

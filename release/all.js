@@ -26,7 +26,7 @@ var groundVertexShader="precision highp float;uniform float time,stride,pulseInt
 var hatchingVertexShader="//! FRAGMENT"
 var modelFragmentShader="precision highp float;uniform float time,ratio;varying vec3 a;void main(){vec3 b=normalize(a);float c=max(dot(b,vec3(0,.707,.707)),0.);gl_FragColor=vec4(c,c,c,1);}"
 var modelVertexShader="precision highp float;uniform float time,ratio;varying vec3 a;attribute vec3 position,normal;void main(){float b,c;b=cos(time*.4);c=sin(time*.4);mat2 d=mat2(b,-c,c,b);gl_Position=vec4(position,1);gl_Position.xz=d*gl_Position.xz;gl_Position.x/=ratio;gl_Position.y+=sin(gl_Position.x+time*.2)*.1-.5;gl_Position.w=gl_Position.z+1.8;a=normal;}"
-var neonFragmentShader="precision highp float;uniform float time,scale,rainbowFactor,spaceFactor;uniform vec3 origin,sunDirection,cameraZ,direction;uniform mat4 viewMatrix,viewProjectionMatrix;varying vec3 a;varying float b;void main(){vec3 c=vec3(0,pow(1.-length(a)*.5,6.)*b+exp(-mod(time,1.))*.3,0);gl_FragColor=vec4(c,1);}"
+var neonFragmentShader="precision highp float;uniform float time,scale,rainbowFactor,spaceFactor;uniform vec3 origin,sunDirection,cameraZ,direction;uniform mat4 viewMatrix,viewProjectionMatrix;varying vec3 a;varying float b;void main(){vec3 c=vec3(.4,pow(1.-length(a)*.5,6.)*b+exp(-mod(time,1.))*.3,.6);gl_FragColor=vec4(c,1);}"
 var neonVertexShader="precision highp float;uniform float time,scale,rainbowFactor,spaceFactor;uniform vec3 origin,sunDirection,cameraZ,direction;uniform mat4 viewMatrix,viewProjectionMatrix;varying vec3 a;varying float b;attribute vec3 position,tangent;attribute float progress;void main(){vec3 c,d,e;c=cross(cameraZ,tangent);d=direction*position.x+vec3(0,position.y,0);e=origin+d+c*.04;gl_Position=viewProjectionMatrix*vec4(e,1);a=c;b=sin(time-progress)*.5+.5;}"
 var rainbowFragmentShader="precision highp float;uniform float time;varying float a;vec3 g(float b){float c,d,e,f;c=floor(b*6.);d=float(c<=2.)+float(c>4.)*.5;e=max(1.-abs(c-2.)*.5,0.);f=(1.-(c-4.)*.5)*float(c>=4.);return vec3(d,e,f);}void main(){gl_FragColor=vec4(g(a),1);}"
 var rainbowVertexShader="precision highp float;uniform float time;varying float a;attribute vec2 pos;void main(){a=-pos.y*.5+.5;gl_Position=vec4(pos*vec2(1,sin(pos.x*.8)*.2+.2),0,1);gl_Position.y+=sin(time+pos.x)*.4;}"
@@ -217,8 +217,8 @@ function BuildingText(text)
 	this.shader = new ShaderProgram(buildingVertexShader, buildingFragmentShader)
 	
 	this.building = new Building({
-		width: 2,
-		depth: 2,
+		width: 3,
+		depth: 3,
 		floors: 6
 	})
 	
@@ -609,12 +609,12 @@ function GreetsCamera(options)
 GreetsCamera.prototype.render = function(time, renderParameters)
 {
 	var speed = this.speed
-	var ref = 96
+	var ref = 90
 	if (time > ref)
 	{
 		var f = time - ref
 		//speed *= Math.exp(-f * 0.1)
-		time = ref + f * Math.exp(-f * 0.1)
+		time = ref + f * Math.exp(-f * 0.047)
 	}
 	var radius = this.radius * (1.0 + Math.sin(time * speed) * 0.4)
 	renderParameters.camera.origin = [this.radius * Math.cos(time * speed), time * speed, this.radius * Math.sin(time * speed)]
@@ -643,8 +643,8 @@ function GreetsTower(options)
 	this.neons.push(new Neon({points: neonLnxPoints, 		origin: [0, 28, 1.7], 	direction: [1, 0, 0]}))
 	this.neons.push(new Neon({points: neonZuulPoints, 		origin: [1.6, 30, 1], 	direction: [-1, 0, 0]}))
 
-	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 37, -1.7], 	direction: [-1, 0, 0]}))
-	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 38, 1.7], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 38, 1.7], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 39.5, 1.7], 	direction: [0.707, 0, 0]}))
 
 }
 
@@ -666,7 +666,7 @@ GreetsTower.prototype.render = function(time, renderParameters)
 	var beat = Math.exp(-(time % 1.0))
 	this.shader.setVec3Uniform("origin", [-0.5, 0, 1.5])
 	this.shader.setFloatUniform("scale", 1.0)
-	this.shader.setFloatUniform("rainbowFactor", beat * 0.1)
+	this.shader.setFloatUniform("rainbowFactor", -beat * 0.4)
 	this.building.render(positionAttribute, normalAttribute)
 	
 	for (var i = 0; i < this.neons.length; i++)
@@ -10565,6 +10565,9 @@ function Rainbow()
 
 Rainbow.prototype.render = function(time)
 {
+	gl.disable(gl.DEPTH_TEST)
+	gl.depthMask(false)
+	
 	this.shader.bind()
 	this.shader.setFloatUniform("time", time)
 	
@@ -10572,6 +10575,8 @@ Rainbow.prototype.render = function(time)
 	this.mesh.bind(posAttribute)
 	
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.mesh.itemCount)
+	
+	gl.enable(gl.DEPTH_TEST)
 }
 ;(function(a,b,c,d,e,f){function k(a){var b,c=a.length,e=this,f=0,g=e.i=e.j=0,h=e.S=[];for(c||(a=[c++]);d>f;)h[f]=f++;for(f=0;d>f;f++)h[f]=h[g=j&g+a[f%c]+(b=h[f])],h[g]=b;(e.g=function(a){for(var b,c=0,f=e.i,g=e.j,h=e.S;a--;)b=h[f=j&f+1],c=c*d+h[j&(h[f]=h[g=j&g+b])+(h[g]=b)];return e.i=f,e.j=g,c})(d)}function l(a,b){var e,c=[],d=(typeof a)[0];if(b&&"o"==d)for(e in a)if(a.hasOwnProperty(e))try{c.push(l(a[e],b-1))}catch(f){}return c.length?c:"s"==d?a:a+"\0"}function m(a,b){for(var d,c=a+"",e=0;c.length>e;)b[j&e]=j&(d^=19*b[j&e])+c.charCodeAt(e++);return o(b)}function n(c){try{return a.crypto.getRandomValues(c=new Uint8Array(d)),o(c)}catch(e){return[+new Date,a.document,a.history,a.navigator,a.screen,o(b)]}}function o(a){return String.fromCharCode.apply(0,a)}var g=c.pow(d,e),h=c.pow(2,f),i=2*h,j=d-1;c.seedrandom=function(a,f){var j=[],p=m(l(f?[a,o(b)]:0 in arguments?a:n(),3),j),q=new k(j);return m(o(q.S),b),c.random=function(){for(var a=q.g(e),b=g,c=0;h>a;)a=(a+c)*d,b*=d,c=q.g(1);for(;a>=i;)a/=2,b/=2,c>>>=1;return(a+c)/b},p},m(c.random(),b)})(this,[],Math,256,6,52);"use strict";
 
@@ -10969,7 +10974,12 @@ function Timeline(duration)
 					start: 320,
 					duration: 16,
 					instance: new BuildingText("MODRAW")
-				}
+				},
+				{
+					start: 336,
+					duration: 48,
+					instance: new Rainbow()
+				},
 				/*{
 					start: 0,
 					duration: 32,

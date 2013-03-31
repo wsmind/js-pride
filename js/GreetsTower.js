@@ -44,7 +44,7 @@ GreetsTower.prototype.render = function(time, renderParameters)
 	var beat = Math.exp(-(time % 1.0))
 	this.shader.setVec3Uniform("origin", [-0.5, 0, 1.5])
 	this.shader.setFloatUniform("scale", 1.0)
-	this.shader.setFloatUniform("rainbowFactor", beat * 0.1)
+	this.shader.setFloatUniform("rainbowFactor", -beat * 0.4)
 	this.building.render(positionAttribute, normalAttribute)
 	
 	for (var i = 0; i < this.neons.length; i++)
