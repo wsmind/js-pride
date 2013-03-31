@@ -119,7 +119,18 @@ function Timeline(duration)
 					start: 0,
 					duration: 96,
 					instance: new Ground()
+				},
+				{
+					start: 194,
+					duration: 94,
+					instance: new Ground()
+				},
+				{
+					start: 416-32,
+					duration: 64+32,
+					instance: new Ground()
 				}
+
 			]
 		},
 		{
@@ -134,6 +145,26 @@ function Timeline(duration)
 					start: 96,
 					duration: 32,
 					instance: new Background()
+				},
+				{
+					start: 96+32,
+					duration: 16*3,
+					instance: new Background()
+				},
+				{
+					start: 96+32+16*3,
+					duration: 32*2,
+					instance: new Sky()
+				},
+				{
+					start: 288,
+					duration: 16*3,
+					instance: new Background()
+				},
+				{
+					start: 416-32,
+					duration: 64+32,
+					instance: new Sky()
 				}
 			]
 		},
@@ -177,7 +208,7 @@ function Timeline(duration)
 				},
 				{
 					start: 160,
-					duration: 16,
+					duration: 32,
 					instance: new Rainbow()
 				},
 				{
@@ -188,12 +219,12 @@ function Timeline(duration)
 				{
 					start: 304,
 					duration: 16,
-					instance: new BuildingText("MODRAW")
+					instance: new BuildingText("WSMIND")
 				},
 				{
 					start: 320,
 					duration: 16,
-					instance: new BuildingText("WSMIND")
+					instance: new BuildingText("MODRAW")
 				}
 				/*{
 					start: 0,
