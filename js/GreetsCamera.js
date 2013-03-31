@@ -9,12 +9,12 @@ function GreetsCamera(options)
 GreetsCamera.prototype.render = function(time, renderParameters)
 {
 	var speed = this.speed
-	var ref = 96
+	var ref = 90
 	if (time > ref)
 	{
 		var f = time - ref
 		//speed *= Math.exp(-f * 0.1)
-		time = ref + f * Math.exp(-f * 0.1)
+		time = ref + f * Math.exp(-f * 0.047)
 	}
 	var radius = this.radius * (1.0 + Math.sin(time * speed) * 0.4)
 	renderParameters.camera.origin = [this.radius * Math.cos(time * speed), time * speed, this.radius * Math.sin(time * speed)]
