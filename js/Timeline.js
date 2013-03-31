@@ -84,8 +84,8 @@ function Timeline(duration)
 					instance: new TextCamera({})
 				},
 				{
-					start: 416,
-					duration: 64,
+					start: 416-32,
+					duration: 64+32,
 					instance: new GreetsCamera({})
 				}
 				/*{
@@ -156,8 +156,8 @@ function Timeline(duration)
 			name: "special buildings",
 			clips: [
 				{
-					start: 416,
-					duration: 64,
+					start: 416-32,
+					duration: 64+32,
 					instance: new GreetsTower()
 				}
 			]
