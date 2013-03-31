@@ -27,7 +27,7 @@ void main(void)
 {
 	vec3 worldPosition = position + origin;
 	//worldPosition.y += sin(worldPosition.x * worldPosition.z * 0.1) * exp(-mod(time, 1.0)) * 0.4;
-	worldPosition.y += (exp(spaceFactor) - 1.0) * 100.0;
+	worldPosition.y += (exp(spaceFactor) - 1.0) * 60.0;
 	//worldPosition.z += sin(worldPosition.y * 0.8) * spaceFactor * worldPosition.y * 0.4;
 	worldPosition.y *= scale;
 	gl_Position = viewProjectionMatrix * vec4(worldPosition, 1.0);

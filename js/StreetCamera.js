@@ -23,7 +23,10 @@ StreetCamera.prototype.render = function(time, renderParameters)
 					var nextStreet = window.streets[i + 1]
 					var pos = vec2.create()
 					
-					vec2.lerp(pos, street.position, nextStreet.position, (time - street.time) / (nextStreet.time - street.time))
+					var t = (time - street.time) / (nextStreet.time - street.time)
+					var coeff = Math.sqrt(1 - t) * (1.0 + Math.sin(time))
+					vec2.lerp(pos, street.position, nextStreet.position, t)
+					vec2.add(pos, pos, [-nextStreet.direction[0] * coeff, -nextStreet.direction[1] * coeff])
 					
 					renderParameters.camera.origin = [pos[0], 2, pos[1]]
 					renderParameters.camera.target = [nextStreet.position[0], 2, nextStreet.position[1]]

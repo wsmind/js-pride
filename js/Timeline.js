@@ -38,7 +38,7 @@ function Timeline(duration)
 						fov: Math.PI * 0.3
 					})
 				},
-				{
+				/*{
 					start: 32,
 					duration: 112,
 					instance: new FixedCamera({
@@ -46,13 +46,13 @@ function Timeline(duration)
 						target: [60, 5, -55],
 						fov: Math.PI * 0.5
 					})
-				},
+				},*/
 				{
 					start: 32,
-					duration: 112,
+					duration: 64,
 					instance: new StreetCamera({})
 				},
-				/*{
+				{
 					start: 96,
 					duration: 32,
 					instance: new FixedCamera({
@@ -61,14 +61,14 @@ function Timeline(duration)
 						fov: Math.PI * 0.12,
 						shake: 1.0
 					})
-				},*/
+				},
 				{
-					start: 144,
-					duration: 16,
+					start: 128,
+					duration: 64,
 					instance: new TextCamera({})
 				},
 				/*{
-					start: 160,
+					start: 192,
 					duration: 32,
 					instance: new No Camera needed here!({})
 				},*/

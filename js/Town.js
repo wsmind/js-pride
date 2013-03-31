@@ -82,11 +82,8 @@ function Town(options)
 			var building = {
 				origin: [currentPosition[0] + side[0] * streetWidth + 1 - ((side[0] + currentDirection[0] < -0.2) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth + ((side[1] + currentDirection[1] > 0.2) ? size : 0)],
 				size: size,
-				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2)
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2) - 3
 			}
-			
-			if (building.time < 2)
-				building.time = 2
 			
 			this.buildings.push(building)
 			
@@ -94,11 +91,8 @@ function Town(options)
 			var building = {
 				origin: [currentPosition[0] - side[0] * streetWidth + 1 - ((side[0] - currentDirection[0] > 0.2) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth + ((side[1] - currentDirection[1] < -0.2) ? size : 0)],
 				size: size,
-				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2)
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2) - 3
 			}
-			
-			if (building.time < 2)
-				building.time = 2
 			
 			this.buildings.push(building)
 			

@@ -42,7 +42,7 @@ void main(void)
 
 void main()
 {
-	vec3 color = vec3(0.0, pow(1.0 - length(fragNormal) * 0.5, 6.0) * 1.0 /** sin(time * time)*/, 0.0) * fragProgress;
+	vec3 color = vec3(0.0, pow(1.0 - length(fragNormal) * 0.5, 6.0) * fragProgress + exp(-mod(time, 1.0)) * 0.3, 0.0);
 	//vec3 color = vec3(0.0, 1.0, 0.0);
 	gl_FragColor = vec4(color, 1.0);
 }
