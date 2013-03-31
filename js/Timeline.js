@@ -41,9 +41,18 @@ function Timeline(duration)
 				{
 					start: 32,
 					duration: 112,
-					instance: new StreetCamera({})
+					instance: new FixedCamera({
+						origin: [60, 60, -50],
+						target: [60, 5, -55],
+						fov: Math.PI * 0.5
+					})
 				},
 				{
+					start: 32,
+					duration: 112,
+					instance: new StreetCamera({})
+				},
+				/*{
 					start: 96,
 					duration: 32,
 					instance: new FixedCamera({
@@ -52,7 +61,7 @@ function Timeline(duration)
 						fov: Math.PI * 0.12,
 						shake: 1.0
 					})
-				},
+				},*/
 				{
 					start: 144,
 					duration: 16,

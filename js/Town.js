@@ -80,25 +80,25 @@ function Town(options)
 			
 			// add one building
 			var building = {
-				origin: [currentPosition[0] + side[0] * streetWidth - ((side[0] < 0) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth - ((side[1] < 0) ? size : 0)],
+				origin: [currentPosition[0] + side[0] * streetWidth + 1 - ((side[0] + currentDirection[0] < -0.2) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth + ((side[1] + currentDirection[1] > 0.2) ? size : 0)],
 				size: size,
-				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2)
 			}
 			
-			if (building.time < 0)
-				building.time = 0
+			if (building.time < 2)
+				building.time = 2
 			
 			this.buildings.push(building)
 			
 			// and the one across the road
 			var building = {
-				origin: [currentPosition[0] - side[0] * streetWidth - ((side[0] > 0) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth - ((side[1] > 0) ? size : 0)],
+				origin: [currentPosition[0] - side[0] * streetWidth + 1 - ((side[0] - currentDirection[0] > 0.2) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth + ((side[1] - currentDirection[1] < -0.2) ? size : 0)],
 				size: size,
-				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
+				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 4 - 2)
 			}
 			
-			if (building.time < 0)
-				building.time = 0
+			if (building.time < 2)
+				building.time = 2
 			
 			this.buildings.push(building)
 			
@@ -111,7 +111,7 @@ function Town(options)
 		}
 		
 		// go to intersection center
-		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth, currentDirection[1] * streetWidth])
 		
 		// change direction randomly
 		if (Math.random() >= 0.33)
@@ -120,7 +120,7 @@ function Town(options)
 			vec3.copy(currentDirection, [-side[0], -side[1]])
 		
 		// go to new street start
-		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth, currentDirection[1] * streetWidth])
 		
 	}
 }
@@ -166,7 +166,7 @@ Town.prototype.render = function(time, renderParameters)
 		var building = this.buildings[i]
 		if (building.time - time > fallingTime)
 			continue
-		if (time - building.time > 10)
+		if (time - building.time > 20)
 			continue
 		
 		this.shader.setVec3Uniform("origin", building.origin)
