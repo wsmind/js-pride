@@ -19,40 +19,7 @@ function Timeline(duration)
 {
 	this.duration = duration
 	
-	/*localStorage["plop"] = JSON.stringify({yop: 42})
-	alert(JSON.parse(localStorage["plop"]).yop)*/
 	this.tracks = [
-		/*{
-			name: "background",
-			clips: [
-				{
-					start: 0,
-					duration: 20,
-					instance: new Background()
-				},
-				{
-					start: 20,
-					duration: 10,
-					instance: new Rainbow()
-				},
-				{
-					start: 30,
-					duration: 40,
-					instance: new Rainbow()
-				}
-			]
-		},
-		{
-			name: "cool stuff",
-			clips: [
-				{
-					start: 15,
-					duration: 20,
-					instance: new WireModel(eiffelMeshBuffer)
-				}
-			]
-		},*/
-		
 		// SECTIONS
 		//   Intro             0 - 32 (32)
 		//   Construction      32 - 160 (128)
@@ -78,7 +45,7 @@ function Timeline(duration)
 				},
 				{
 					start: 144,
-					duration: 64,
+					duration: 16,
 					instance: new TextCamera({})
 				},
 				/*{
@@ -97,8 +64,23 @@ function Timeline(duration)
 				},*/
 				{
 					start: 194,
-					duration: 224,
+					duration: 94,
 					instance: new StreetCamera({})
+				},
+				{
+					start: 288,
+					duration: 16,
+					instance: new TextCamera({})
+				},
+				{
+					start: 304,
+					duration: 16,
+					instance: new TextCamera({})
+				},
+				{
+					start: 320,
+					duration: 16,
+					instance: new TextCamera({})
 				},
 				{
 					start: 416,
@@ -134,7 +116,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 480,
+					duration: 144,
 					instance: new Ground()
 				}
 			]
@@ -144,7 +126,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 0,
-					duration: 480,
+					duration: 144,
 					instance: new Sky()
 				}/*,
 				{
@@ -164,7 +146,7 @@ function Timeline(duration)
 				},
 				{
 					start: 194,
-					duration: 224,
+					duration: 94,
 					instance: new Town()
 				}
 			]
@@ -183,20 +165,35 @@ function Timeline(duration)
 			name: "cool fx",
 			clips: [
 				{
-					start: 194,
-					duration: 224,
-					instance: new Neon({points: neonVitalmotionPoints})
+					start: 144,
+					duration: 16,
+					instance: new BuildingText("JS-PRIDE")
 				},
 				{
-					start: 144,
+					start: 160,
+					duration: 16,
+					instance: new Rainbow()
+				},
+				{
+					start: 288,
+					duration: 16,
+					instance: new BuildingText("TITEIKO")
+				},
+				{
+					start: 304,
 					duration: 16,
 					instance: new BuildingText("MODRAW")
 				},
 				{
+					start: 320,
+					duration: 16,
+					instance: new BuildingText("WSMIND")
+				}
+				/*{
 					start: 0,
 					duration: 32,
 					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5], direction: [-0.7, 0, 0.7]})
-				},
+				},*/
 				/*{
 					start: 0,
 					duration: 32,

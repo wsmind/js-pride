@@ -7,6 +7,8 @@ function Demo()
 		alert("Your browser does not support OES_element_index_uint!")
 	}
 	
+	Math.seedrandom("plop")
+	
 	// load sound
 	this.audio = new Audio()
 	this.audio.src = "music/Pissaladiere04_mix.mp3"

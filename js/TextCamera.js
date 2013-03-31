@@ -10,9 +10,10 @@ function TextCamera(options)
 TextCamera.prototype.render = function(time, renderParameters)
 {
 	var origin = vec3.clone(this.origin)
-	vec3.add(origin, origin, [Math.cos(time) * 5, -100 * Math.exp(-time), Math.sin(time) * 5])
+	var factor = Math.exp(-time)
+	vec3.add(origin, origin, [Math.cos(time * 0.1) * 20 * factor, -100 * factor, Math.sin(time * 0.1) * 20 * factor])
 	
-	renderParameters.camera.origin = this.origin
+	renderParameters.camera.origin = origin
 	renderParameters.camera.target = this.target
 	renderParameters.camera.fov = this.fov
 }
