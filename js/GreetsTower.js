@@ -11,10 +11,14 @@ function GreetsTower(options)
 	})
 	
 	this.neons = []
-	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 3, -3]}))
-	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 7, -3]}))
-	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 9, -3]}))
-	this.neons.push(new Neon({points: neonVitalmotionPoints, origin: [1, 12, -3]}))
+	this.neons.push(new Neon({points: neonVitalmotionPoints, 	origin: [-1, 5, -1.7], 	direction: [-1, 0, 0]}))
+	this.neons.push(new Neon({points: neonXmenPoints, 			origin: [1.6, 8, 1], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonCtrlPoints, 			origin: [2.6, 11, -1.7], 	direction: [-1, 0, 0]}))
+	this.neons.push(new Neon({points: neonPunkfloydPoints, 		origin: [1, 12, -3], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonMPoints, 				origin: [1, 20, -3], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonRibbonPoints, 		origin: [0, 21, 2], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonPunkfloydPoints, 		origin: [1, 30, -3], 	direction: [1, 0, 0]}))
+
 }
 
 GreetsTower.prototype.render = function(time, renderParameters)
