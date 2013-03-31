@@ -39,6 +39,7 @@ function Town(options)
 	}
 	
 	this.buildings = []
+	this.streets = []
 	
 	/*var currentZ = 0
 	for (var i = 0; i < 20; i++)
@@ -63,6 +64,12 @@ function Town(options)
 	var currentDirection = [0, -1]
 	for (var street = 0; street < 20; street++)
 	{
+		this.streets.push({
+			position: vec2.clone(currentPosition),
+			direction: vec2.clone(currentDirection),
+			time: street * buildingsPerStreet
+		})
+		
 		var side = [-currentDirection[1], currentDirection[0]]
 		
 		// generate buildings along this streeet
@@ -73,7 +80,7 @@ function Town(options)
 			
 			// add one building
 			var building = {
-				origin: [currentPosition[0] + side[0] * streetWidth - ((side[0] < 0) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth - ((side[1] > 0) ? size : 0)],
+				origin: [currentPosition[0] + side[0] * streetWidth - ((side[0] < 0) ? size : 0), 0, currentPosition[1] + side[1] * streetWidth - ((side[1] < 0) ? size : 0)],
 				size: size,
 				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
 			}
@@ -85,10 +92,14 @@ function Town(options)
 			
 			// and the one across the road
 			var building = {
-				origin: [currentPosition[0] - side[0] * streetWidth - ((side[0] > 0) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth - ((side[1] < 0) ? size : 0)],
+				origin: [currentPosition[0] - side[0] * streetWidth - ((side[0] > 0) ? size : 0), 0, currentPosition[1] - side[1] * streetWidth - ((side[1] > 0) ? size : 0)],
 				size: size,
 				time: street * buildingsPerStreet + i + Math.floor(Math.random() * 8 - 4)
 			}
+			
+			if (building.time < 0)
+				building.time = 0
+			
 			this.buildings.push(building)
 			
 			/*this.buildings.push({
@@ -99,16 +110,25 @@ function Town(options)
 			vec2.add(currentPosition, currentPosition, [currentDirection[0] * size, currentDirection[1] * size])
 		}
 		
+		// go to intersection center
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		
 		// change direction randomly
 		if (Math.random() >= 0.33)
 			vec3.copy(currentDirection, side)
 		else if (Math.random() >= 0.33)
-			vec3.copy(currentDirection, [-side[0], -side[1]])	
+			vec3.copy(currentDirection, [-side[0], -side[1]])
+		
+		// go to new street start
+		vec2.add(currentPosition, currentPosition, [currentDirection[0] * streetWidth * 0.5, currentDirection[1] * streetWidth * 0.5])
+		
 	}
 }
 
 Town.prototype.render = function(time, renderParameters)
 {
+	window.streets = this.streets
+	
 	gl.enable(gl.DEPTH_TEST)
 	gl.depthFunc(gl.LEQUAL)
 	gl.depthMask(true)
@@ -146,7 +166,7 @@ Town.prototype.render = function(time, renderParameters)
 		var building = this.buildings[i]
 		if (building.time - time > fallingTime)
 			continue
-		if (time - building.time > 40)
+		if (time - building.time > 10)
 			continue
 		
 		this.shader.setVec3Uniform("origin", building.origin)
@@ -158,7 +178,7 @@ Town.prototype.render = function(time, renderParameters)
 		//this.shader.setFloatUniform("spaceFactor", Math.max(i - time, 0))
 		//this.shader.setFloatUniform("spaceFactor", Math.exp(vec3.distance(building.origin, renderParameters.camera.origin) - 20.0) * 0.01)
 		
-		var bTime = (time - building.time) / fallingTime
+		var bTime = (time - building.time + fallingTime) / fallingTime
 		if (bTime < 0) bTime = 0
 		if (bTime > 1) bTime = 1
 		this.shader.setFloatUniform("spaceFactor", 1.0 - bTime * bTime)
