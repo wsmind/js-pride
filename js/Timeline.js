@@ -147,8 +147,8 @@ function Timeline(duration)
 					instance: new Background()
 				},
 				{
-					start: 96+32+16*3,
-					duration: 32*2,
+					start: 176,
+					duration: 112,
 					instance: new Sky()
 				},
 				{
