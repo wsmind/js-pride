@@ -68,7 +68,7 @@ vec3 skyColor(vec3 viewDirection, vec3 sunDirection)
 vec3 sunLight(vec3 viewDirection, vec3 sunDirection)
 {
 	float cosAngle = dot(sunDirection, viewDirection);
-	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 1000.0 + pulseIntensity * (1.0 - exp(-mod(time, 1.0))) * 3000.0);
+	vec3 sun = sunColor * pow(max(cosAngle, 0.0), 1000.0 + (1.0 - pulseIntensity * exp(-mod(time, 1.0))) * 3000.0);
 	
 	return sun;
 }

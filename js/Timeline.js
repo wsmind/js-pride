@@ -66,9 +66,9 @@ function Timeline(duration)
 					start: 0,
 					duration: 32,
 					instance: new FixedCamera({
-						origin: [0, 2, -10],
+						origin: [0, 2, 10],
 						target: [0, 2, 0],
-						fov: Math.PI * 0.4
+						fov: Math.PI * 0.3
 					})
 				},
 				{
@@ -182,8 +182,13 @@ function Timeline(duration)
 					duration: 224,
 					instance: new Neon({points: neonVitalmotionPoints})
 				},
+				{
+					start: 0,
+					duration: 32,
+					instance: new Neon({points: neonDemojsPoints, origin: [0, 2, 5]})
+				},
 				/*{
-					start: 320,
+					start: 0,
 					duration: 32,
 					instance: new Equalizer()
 				},
