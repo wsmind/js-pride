@@ -197,7 +197,7 @@ function Timeline(duration)
 			clips: [
 				{
 					start: 416-32,
-					duration: 64+32,
+					duration: 64+32+8,
 					instance: new GreetsTower()
 				}
 			]

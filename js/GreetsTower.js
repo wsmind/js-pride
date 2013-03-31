@@ -15,11 +15,14 @@ function GreetsTower(options)
 	this.neons.push(new Neon({points: neonXmenPoints, 			origin: [1.6, 8, 1], 	direction: [0.707, 0, 0]}))
 	this.neons.push(new Neon({points: neonCtrlPoints, 			origin: [0, 11, -1.7], 	direction: [-1, 0, 0]}))
 	this.neons.push(new Neon({points: neonPunkfloydPoints, 		origin: [-0.1, 14, 1.7], 	direction: [0.707, 0, 0]}))
-	this.neons.push(new Neon({points: neonMPoints, 				origin: [1.5, 18, -1.5], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonMPoints, 				origin: [1.5, 20, -1.5], 	direction: [1, 0, 0]}))
 	this.neons.push(new Neon({points: neonRibbonPoints, 		origin: [0, 21, 1.7], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonAdinpzPoints, 		origin: [1.6, 25, 1], 	direction: [-1, 0, 0]}))
+	this.neons.push(new Neon({points: neonLnxPoints, 		origin: [0, 28, 1.7], 	direction: [1, 0, 0]}))
+	this.neons.push(new Neon({points: neonZuulPoints, 		origin: [1.6, 30, 1], 	direction: [-1, 0, 0]}))
 
-	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 30, -1.7], 	direction: [-1, 0, 0]}))
-	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 32, 1.7], 	direction: [0.707, 0, 0]}))
+	this.neons.push(new Neon({points: neonDatePoints, 		origin: [0, 37, -1.7], 	direction: [-1, 0, 0]}))
+	this.neons.push(new Neon({points: neonDemojsPoints, 		origin: [0, 38, 1.7], 	direction: [0.707, 0, 0]}))
 
 }
 
