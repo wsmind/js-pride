@@ -28,6 +28,11 @@ StreetCamera.prototype.render = function(time, renderParameters)
 					vec2.lerp(pos, street.position, nextStreet.position, t)
 					vec2.add(pos, pos, [-nextStreet.direction[0] * coeff, -nextStreet.direction[1] * coeff])
 					
+					var up = renderParameters.camera.up
+					vec2.add(up, up, [Math.cos(time * 0.1) * 0.4, 0.0, Math.sin(time * 0.1) * 0.4])
+					vec2.normalize(up, up)
+					renderParameters.camera.up = up
+					
 					renderParameters.camera.origin = [pos[0], 2, pos[1]]
 					renderParameters.camera.target = [nextStreet.position[0], 2, nextStreet.position[1]]
 				}
