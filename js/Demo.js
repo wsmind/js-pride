@@ -11,7 +11,7 @@ function Demo()
 	
 	// load sound
 	this.audio = new Audio()
-	this.audio.src = "music/Pissaladiere04_mix.mp3"
+	this.audio.src = "Pissaladiere04_mix.mp3"
 	//this.audio.volume = 0
 	this.bpm = 128
 	
