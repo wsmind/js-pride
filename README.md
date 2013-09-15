@@ -10,16 +10,19 @@ Released at Revision 2013, ranked 2nd place in WebGL compo.
 * Music: modraw
 
 [Watch it here!](http://share.titeiko.com/js_pride/release/js-pride.html)
+
 [Pouet link](http://www.pouet.net/prod.php?which=61280)
 
-Note that the demo requires the OES_element_index_uint WebGL extension (a.k.a vertex buffers with more than 64k vertices).
+Note: this demo requires the OES_element_index_uint WebGL extension (a.k.a vertex buffers with more than 64k vertices).
 This extension is currently available only in Chrome desktop.
 
 License
 -------
 
-All the code (javascript or shader) you can find in this repository is licensed under the MIT license, with the exception of jQuery, glMatrix, and seedrandom, wich are the property
-of their respective owners (see individual files for details).
+All the code (javascript or shader) you can find in this repository is licensed under the MIT license, with the exception of
+[jQuery](http://jquery.com/), [glMatrix](https://github.com/toji/gl-matrix),
+and [seedrandom](http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html),
+wich are the property of their respective owners (see individual files for details).
 
 Music ("Pissaladiere") is the property of Modraw, and should not be used without his approval.
 
@@ -40,10 +43,10 @@ it is not as straightforward and clean as one would expect ;)
 However, it should still be possible to build the demo if you have the right combination
 of tools installed on your machine :)
 
-### Side note (frequently asked question): this is Javascript, why are you even building this?
+### Side note: this is Javascript, why are you even building this?
 
 This is good question, normal JS programs don't require building. What we use building for:
- * Compiling assets (shaders and meshes) directly into JS code. The goal of this is twofold:
+ * Compiling assets (shaders and meshes) directly into JS code. The goal is twofold:
    * Avoid dynamically loading these data at runtime, they are directly built into the source code. This is not required for a typical
      application, but is quite practical for a demo (actually, any external request is usually stricly forbidden by party rules).
    * Building assets allows complex optimization to be done at this step. This was not used for JS Pride, but we could be quantizing mesh
