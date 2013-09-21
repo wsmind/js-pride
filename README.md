@@ -14,7 +14,7 @@ Released at Revision 2013, ranked 2nd place in WebGL compo.
 [Pouet link](http://www.pouet.net/prod.php?which=61280)
 
 Note: this demo requires the OES_element_index_uint WebGL extension (a.k.a vertex buffers with more than 64k vertices).
-This extension is currently available only in Chrome desktop.
+This extension is currently available in Chrome desktop, and just landed in Firefox nightly (should arrive to stable branch in a few release cycles).
 
 License
 -------
